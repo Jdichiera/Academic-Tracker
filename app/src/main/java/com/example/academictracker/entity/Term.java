@@ -10,10 +10,10 @@ public class Term {
     @PrimaryKey(autoGenerate = true)
     private int id;
     private String title;
-    private Date startDate;
-    private Date endDate;
+    private Long startDate;
+    private Long endDate;
 
-    public Term(String title, Date startDate, Date endDate) {
+    public Term(String title, Long startDate, Long endDate) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -31,11 +31,11 @@ public class Term {
         return title;
     }
 
-    public Date getStartDate() {
+    public Long getStartDate() {
         return startDate;
     }
 
-    public Date getEndDate() {
+    public Long getEndDate() {
         return endDate;
     }
 }
