@@ -11,13 +11,9 @@ import androidx.sqlite.db.SupportSQLiteDatabase;
 import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.entity.Term;
 
-import java.text.DateFormat;
 import java.time.LocalDate;
 import java.time.ZoneOffset;
 import java.time.format.DateTimeFormatter;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
 
 @Database(entities = {Term.class}, version = 1, exportSchema = false)
 public abstract class AcademicTrackerDatabase extends RoomDatabase {

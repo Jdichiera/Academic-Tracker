@@ -7,28 +7,26 @@
     tools:context=".view.Home">
 
     <Button
-        android:id="@+id/button_all_terms"
+        android:id="@+id/button_view_all_terms"
         android:layout_width="0dp"
         android:layout_height="48dp"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:onClick="viewAllTerms"
         android:text="@string/view_all_terms"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button_current_term"
+        android:id="@+id/button_view_current_term"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginTop="24dp"
         android:layout_marginEnd="16dp"
-        android:onClick="viewCurrentTerm"
         android:text="@string/view_current_term"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/button_all_terms" />
+        app:layout_constraintTop_toBottomOf="@+id/button_view_all_terms" />
 </androidx.constraintlayout.widget.ConstraintLayout>

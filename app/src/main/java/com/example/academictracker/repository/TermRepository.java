@@ -39,7 +39,7 @@ public class TermRepository {
         new DeleteAllTermsAsyncTask(termDao).execute();
     }
 
-    public LiveData<List<Term>> getAllNotes() {
+    public LiveData<List<Term>> getAllTerms() {
         return allTerms;
     }
 
