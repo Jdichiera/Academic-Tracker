@@ -1,4 +1,4 @@
-package com.example.academictracker.model;
+package com.example.academictracker.entity;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
