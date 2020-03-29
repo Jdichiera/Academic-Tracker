@@ -13,7 +13,9 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.academictracker.R;
+import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
+import com.example.academictracker.entity.Term;
 
 public class Home extends AppCompatActivity {
 
