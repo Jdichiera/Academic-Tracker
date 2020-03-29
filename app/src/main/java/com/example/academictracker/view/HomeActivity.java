@@ -13,11 +13,8 @@ import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.academictracker.R;
-import com.example.academictracker.dao.TermDao;
-import com.example.academictracker.database.AcademicTrackerDatabase;
-import com.example.academictracker.entity.Term;
 
-public class Home extends AppCompatActivity {
+public class HomeActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,7 +25,7 @@ public class Home extends AppCompatActivity {
         buttonViewAllTerms.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(Home.this, TermList.class);
+                Intent intent = new Intent(HomeActivity.this, TermListActivity.class);
                 startActivity(intent);
             }
         });
