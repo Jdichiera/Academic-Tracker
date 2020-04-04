@@ -1,15 +1,21 @@
 package com.example.academictracker.view;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
+import android.graphics.Canvas;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.Toast;
 
 import com.example.academictracker.R;
@@ -22,7 +28,9 @@ import java.util.List;
 
 public class TermListActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
+    public static final int EDIT_TERM_REQUEST = 2;
     private TermViewModel termViewModel;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,17 +41,27 @@ public class TermListActivity extends AppCompatActivity {
         buttonAddTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(TermListActivity.this, AddTermActivity.class);
+                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
                 startActivityForResult(intent, ADD_TERM_REQUEST);
             }
         });
         RecyclerView recyclerView = findViewById(R.id.term_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-
         final TermAdapter adapter = new TermAdapter();
-
         recyclerView.setAdapter(adapter);
+
+        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
+            @Override
+            public void onItemClick(Term term) {
+                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+                intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
+                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
+                startActivityForResult(intent, EDIT_TERM_REQUEST);
+            }
+        });
 
         termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
         termViewModel.getAllTerms().observe(this, new Observer<List<Term>>() {
@@ -57,16 +75,42 @@ public class TermListActivity extends AppCompatActivity {
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+        String title;
+        long startDate;
+        long endDate;
 
-        if (requestCode == ADD_TERM_REQUEST && resultCode == RESULT_OK) {
-            String title = data.getStringExtra(AddTermActivity.EXTRA_TITLE);
+        if (resultCode == RESULT_OK) {
+            title = data.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
+            startDate = data.getLongExtra(AddEditTermActivity.EXTRA_START_DATE, 0);
+            endDate = data.getLongExtra(AddEditTermActivity.EXTRA_END_DATE, 0);
+            Term term = new Term(title, startDate, endDate);
 
-            Term term = new Term(title, 1585502595L, 1585502595L);
-            termViewModel.insert(term);
+            if (requestCode == ADD_TERM_REQUEST) {
+                termViewModel.insert(term);
+                Toast.makeText(this, "Term Added : " + title, Toast.LENGTH_SHORT).show();
+            } else if (requestCode == EDIT_TERM_REQUEST) {
+                int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
 
-            Toast.makeText(this, "Term Saved : " + title, Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Term not saved", Toast.LENGTH_SHORT).show();
+                if (id == -1) {
+                    Toast.makeText(this, "Term cannot be updated", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                term.setId(id);
+                termViewModel.update(term);
+                Toast.makeText(this, "Term Updated : " + title, Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, "Term not saved", Toast.LENGTH_SHORT).show();
+            }
         }
+    }
+
+    private void viewTerm(Term term) {
+        Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
+        intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
+        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
+        startActivityForResult(intent, EDIT_TERM_REQUEST);
     }
 }

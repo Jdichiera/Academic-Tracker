@@ -23,7 +23,7 @@
         <activity android:name=".view.TermListActivity" />
 
         <activity
-            android:name=".view.AddTermActivity"
+            android:name=".view.AddEditTermActivity"
             android:parentActivityName=".view.TermListActivity" />
 
         <!-- <activity android:name=".MainActivity"> -->

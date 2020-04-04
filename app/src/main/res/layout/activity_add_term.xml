@@ -5,7 +5,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
     android:padding="16dp"
-    tools:context=".view.AddTermActivity">
+    tools:context=".view.AddEditTermActivity">
 
     <TextView
         android:id="@+id/add_term_title_prompt"
@@ -41,16 +41,26 @@
         android:text="Start Date:"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/add_term_start"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/add_term_title"-->
+<!--        android:layout_alignBottom="@id/add_term_start_prompt"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:hint="Use mm/dd/yyyy format"-->
+<!--        android:inputType="date"-->
+<!--        android:textAlignment="viewEnd" />-->
+    <DatePicker
         android:id="@+id/add_term_start"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_term_title"
-        android:layout_alignBottom="@id/add_term_start_prompt"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="20dp"
-        android:hint="Use mm/dd/yyyy format"
-        android:inputType="date"
+        android:datePickerMode="spinner"
         android:textAlignment="viewEnd" />
 
     <TextView
@@ -64,16 +74,27 @@
         android:text="End Date:"
         android:textAppearance="@style/TextAppearance.AppCompat.Large" />
 
-    <EditText
+<!--    <EditText-->
+<!--        android:id="@+id/add_term_end"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_below="@id/add_term_start"-->
+<!--        android:layout_alignBottom="@id/add_term_end_prompt"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:hint="Use mm/dd/yyyy format"-->
+<!--        android:inputType="date"-->
+<!--        android:textAlignment="viewEnd" />-->
+
+    <DatePicker
         android:id="@+id/add_term_end"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/add_term_start"
-        android:layout_alignBottom="@id/add_term_end_prompt"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
         android:layout_alignParentEnd="true"
-        android:layout_marginLeft="20dp"
-        android:hint="Use mm/dd/yyyy format"
-        android:inputType="date"
+        android:datePickerMode="spinner"
         android:textAlignment="viewEnd" />
 
     <Button
