@@ -38,22 +38,20 @@
             android:text="04-01-2020" />
 
         <Button
-            android:id="@+id/button_view_term"
+            android:id="@+id/button_term_view_term"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
-            android:layout_toStartOf="@id/button_edit_term"
-
+            android:layout_toStartOf="@id/button_term_edit_term"
             android:onClick="viewTerm"
             android:text="View" />
 
         <Button
-            android:id="@+id/button_edit_term"
+            android:id="@+id/button_term_edit_term"
             android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:onClick="editTerm"
             android:text="Edit" />
-
 
     </RelativeLayout>
 

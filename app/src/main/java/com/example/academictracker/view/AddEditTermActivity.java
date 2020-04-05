@@ -29,18 +29,18 @@ public class AddEditTermActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_term);
-        editTextTitle = findViewById(R.id.add_term_title);
-        startDate = findViewById(R.id.add_term_start);
-        endDate = findViewById(R.id.add_term_end);
+        editTextTitle = findViewById(R.id.term_add_title);
+        startDate = findViewById(R.id.term_add_start);
+        endDate = findViewById(R.id.term_add_end);
 
         Intent intent = getIntent();
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Term");
             Calendar calendar = Calendar.getInstance();
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
-            calendar.setTimeInMillis(intent.getLongExtra(AddEditTermActivity.EXTRA_START_DATE, 0));
+            calendar.setTimeInMillis(intent.getLongExtra(EXTRA_START_DATE, 0));
             startDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
-            calendar.setTimeInMillis(intent.getLongExtra(AddEditTermActivity.EXTRA_END_DATE, 0));
+            calendar.setTimeInMillis(intent.getLongExtra(EXTRA_END_DATE, 0));
             endDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
         } else {
             setTitle("Add Term");

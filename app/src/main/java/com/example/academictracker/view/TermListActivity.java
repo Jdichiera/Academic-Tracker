@@ -28,7 +28,7 @@ public class TermListActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_term_list);
 
-        FloatingActionButton buttonAddTerm = findViewById(R.id.button_add_term);
+        FloatingActionButton buttonAddTerm = findViewById(R.id.button_list_add_term);
         buttonAddTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
