@@ -11,7 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Toast;
 import com.example.academictracker.R;
-import com.example.academictracker.adapters.TermAdapter;
+import com.example.academictracker.adapters.TermListAdapter;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -22,7 +22,6 @@ public class TermListActivity extends AppCompatActivity {
     public static final int ADD_TERM_REQUEST = 1;
     public static final int EDIT_TERM_REQUEST = 2;
     private TermViewModel termViewModel;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,13 +36,14 @@ public class TermListActivity extends AppCompatActivity {
                 startActivityForResult(intent, ADD_TERM_REQUEST);
             }
         });
+
         RecyclerView recyclerView = findViewById(R.id.term_list_recyclerview);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setHasFixedSize(true);
-        final TermAdapter adapter = new TermAdapter();
+        final TermListAdapter adapter = new TermListAdapter();
         recyclerView.setAdapter(adapter);
 
-        adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
+        adapter.setOnItemClickListener(new TermListAdapter.OnItemClickListener() {
             @Override
             public void onViewClick(Term term) {
                 viewTerm(term);

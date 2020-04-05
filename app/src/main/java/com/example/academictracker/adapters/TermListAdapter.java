@@ -15,21 +15,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
+public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermListHolder> {
     private List<Term> terms = new ArrayList<>();
     OnItemClickListener listener;
 
-
     @NonNull
     @Override
-    public TermHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    public TermListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         View termView = LayoutInflater.from(parent.getContext())
                 .inflate(R.layout.term_item, parent, false);
-        return new TermHolder(termView);
+        return new TermListHolder(termView);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull TermHolder holder, int position) {
+    public void onBindViewHolder(@NonNull TermListHolder holder, int position) {
         Term termAtPosition = terms.get(position);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
@@ -56,14 +55,14 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
         return terms.get(position);
     }
 
-    class TermHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class TermListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView termViewTitle;
         private TextView termViewStartDate;
         private TextView termViewEndDate;
         private Button buttonEditTerm;
         private Button buttonViewTerm;
 
-        public TermHolder(@NonNull View itemView) {
+        public TermListHolder(@NonNull View itemView) {
             super(itemView);
 
             termViewTitle = itemView.findViewById(R.id.term_title);
@@ -102,7 +101,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.TermHolder> {
         void onEditClick(Term term);
         void onViewClick(Term term);
     }
-
 
     public void setOnItemClickListener(OnItemClickListener listener) {
         this.listener = listener;
