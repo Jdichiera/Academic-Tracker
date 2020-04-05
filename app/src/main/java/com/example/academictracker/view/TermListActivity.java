@@ -1,23 +1,15 @@
 package com.example.academictracker.view;
 
-import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.ItemTouchHelper;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
-import android.graphics.Canvas;
 import android.os.Bundle;
-import android.view.MotionEvent;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.TermAdapter;
 import com.example.academictracker.entity.Term;
@@ -53,13 +45,13 @@ public class TermListActivity extends AppCompatActivity {
 
         adapter.setOnItemClickListener(new TermAdapter.OnItemClickListener() {
             @Override
-            public void onItemClick(Term term) {
-                Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
-                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
-                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
-                startActivityForResult(intent, EDIT_TERM_REQUEST);
+            public void onViewClick(Term term) {
+                viewTerm(term);
+            }
+
+            @Override
+            public void onEditClick(Term term) {
+                editTerm(term);
             }
         });
 
@@ -105,12 +97,22 @@ public class TermListActivity extends AppCompatActivity {
         }
     }
 
-    private void viewTerm(Term term) {
+    private void editTerm(Term term) {
         Intent intent = new Intent(TermListActivity.this, AddEditTermActivity.class);
         intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
         intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
         intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
         intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
         startActivityForResult(intent, EDIT_TERM_REQUEST);
+    }
+
+    private void viewTerm(Term term) {
+        Intent intent = new Intent(TermListActivity.this, ViewTermActivity.class);
+        intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
+        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
+        startActivity(intent);
+//        startActivityForResult(intent, EDIT_TERM_REQUEST);
     }
 }
