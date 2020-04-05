@@ -113,6 +113,5 @@ public class TermListActivity extends AppCompatActivity {
         intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
         intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
         startActivity(intent);
-//        startActivityForResult(intent, EDIT_TERM_REQUEST);
     }
 }
