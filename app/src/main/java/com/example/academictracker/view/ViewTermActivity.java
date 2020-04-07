@@ -26,9 +26,6 @@ public class ViewTermActivity extends AppCompatActivity {
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
-    private Button buttonViewCourseList;
-    private Button buttonDeleteTerm;
-    private Button buttonEditTerm;
     private TermViewModel termViewModel;
     public static final int EDIT_TERM_REQUEST = 1;
     public static final int DELETE_TERM_REQUEST = 2;
@@ -36,9 +33,6 @@ public class ViewTermActivity extends AppCompatActivity {
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     int id;
-    String termTitle;
-    long startDateInMillis;
-    long endDateInMillis;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,22 +41,13 @@ public class ViewTermActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         id = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
-//        termTitle = intent.getStringExtra(AddEditTermActivity.EXTRA_TITLE);
-//        startDateInMillis = intent.getLongExtra(AddEditTermActivity.EXTRA_START_DATE, 0);
-//        endDateInMillis = intent.getLongExtra(AddEditTermActivity.EXTRA_END_DATE, 0);
-
-
-//        calendar.setTimeInMillis(startDateInMillis);
-//        final Date startDate = calendar.getTime();
-//        calendar.setTimeInMillis(endDateInMillis);
-//        Date endDate = calendar.getTime();
 
         textViewTitle = findViewById(R.id.term_view_title);
         textViewStartDate = findViewById(R.id.term_view_start_date);
         textViewEndDate = findViewById(R.id.term_view_end_date);
-        buttonViewCourseList = findViewById(R.id.button_view_course_list);
-        buttonDeleteTerm = findViewById(R.id.button_view_delete_term);
-        buttonEditTerm = findViewById(R.id.button_view_edit_term);
+        Button buttonViewCourseList = findViewById(R.id.button_view_course_list);
+        Button buttonDeleteTerm = findViewById(R.id.button_view_delete_term);
+        Button buttonEditTerm = findViewById(R.id.button_view_edit_term);
         termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
         termViewModel.getTerm(id).observe(this, new Observer<Term>() {
             @Override
@@ -71,25 +56,11 @@ public class ViewTermActivity extends AppCompatActivity {
                     calendar.setTimeInMillis(term.getStartDate());
                     textViewTitle.setText(term.getTitle());
                     textViewStartDate.setText((dateFormat.format(calendar.getTime())));
-//                Log.e("start", textViewStartDate.getText().toString());
-//                Log.e("cal", dateFormat.format(calendar.getTime()));
                     calendar.setTimeInMillis(term.getEndDate());
                     textViewEndDate.setText((dateFormat.format(calendar.getTime())));
-//                Log.e("end", textViewEndDate.getText().toString());
-//                Log.e("cal", dateFormat.format(calendar.getTime()));
                 }
             }
         });
-
-//        textViewTitle.setText(termTitle);
-//        textViewStartDate.setText(dateFormat.format(startDate));
-//        textViewEndDate.setText(dateFormat.format(endDate));
-
-//        term = new Term(termTitle, startDateInMillis, endDateInMillis);
-//        term.setId(id);
-
-
-
 
         buttonViewCourseList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -104,41 +75,6 @@ public class ViewTermActivity extends AppCompatActivity {
                 Toast.makeText(ViewTermActivity.this, "Delete Term", Toast.LENGTH_SHORT).show();
                 term = createTerm();
                 term.setId(id);
-
-
-
-//                long startDateLong;
-//                long endDateLong;
-//                String title = textViewTitle.getText().toString();
-//                Calendar calendar = Calendar.getInstance();
-//                calendar.set(text.getYear(), startDate.getMonth(), startDate.getDayOfMonth());
-//                startDateLong = calendar.getTimeInMillis();
-//                calendar.set(endDate.getYear(), endDate.getMonth(), endDate.getDayOfMonth());
-//                endDateLong = calendar.getTimeInMillis();
-//
-//                if (title.trim().isEmpty()) {
-//                    Toast.makeText(this, "Please enter a title before saving.", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                Intent data = new Intent();
-//                data.putExtra(EXTRA_TITLE, title);
-//                data.putExtra(EXTRA_START_DATE, startDateLong);
-//                data.putExtra(EXTRA_END_DATE, endDateLong);
-//
-//                // If we are in an update scenario - pass the ID so we know that we are updating a term
-//                // We pass a -1 default in
-//                int id = getIntent().getIntExtra(EXTRA_ID, -1);
-//                if (id != -1) {
-//                    data.putExtra(EXTRA_ID, id);
-//                }
-//
-//                setResult(RESULT_OK, data);
-//                finish();
-//
-//
-//
-//
                 termViewModel.deleteTerm(term);
                 finish();
             }
@@ -147,16 +83,7 @@ public class ViewTermActivity extends AppCompatActivity {
         buttonEditTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 term = createTerm();
-
-                Log.e("ID", String.valueOf(term.getId()));
-                Log.e("TITLE", term.getTitle());
-                Log.e("START", String.valueOf(term.getStartDate()));
-                Log.e("END", String.valueOf(term.getEndDate()));
-
-//                term = new Term(title, startDateLong, endDateLong);
-//                term.setId(id);
                 Intent intent = new Intent(ViewTermActivity.this, AddEditTermActivity.class);
                 intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
                 intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
