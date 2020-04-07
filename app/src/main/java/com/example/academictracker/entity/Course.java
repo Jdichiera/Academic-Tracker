@@ -3,13 +3,13 @@ package com.example.academictracker.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-enum CourseStatus {
-    STARTED, IN_PROGRESS, COMPLETED, DROPPED
-}
+
 
 @Entity(tableName = "course_table")
 public class Course {
-
+    enum CourseStatus {
+        STARTED, IN_PROGRESS, COMPLETED, DROPPED
+    }
 
     @PrimaryKey(autoGenerate = true)
     private int courseId;
