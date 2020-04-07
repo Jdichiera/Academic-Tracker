@@ -20,7 +20,7 @@ public interface TermDao {
     void update(Term term);
 
     @Delete
-    void delete(Term term);
+    void deleteTerm(Term term);
 
     @Query("DELETE FROM terms_table")
     void deleteAllTerms();

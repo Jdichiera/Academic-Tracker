@@ -67,15 +67,17 @@ public class ViewTermActivity extends AppCompatActivity {
         termViewModel.getTerm(id).observe(this, new Observer<Term>() {
             @Override
             public void onChanged(Term term) {
-                calendar.setTimeInMillis(term.getStartDate());
-                textViewTitle.setText(term.getTitle());
-                textViewStartDate.setText((dateFormat.format(calendar.getTime())));
+                if (term != null) {
+                    calendar.setTimeInMillis(term.getStartDate());
+                    textViewTitle.setText(term.getTitle());
+                    textViewStartDate.setText((dateFormat.format(calendar.getTime())));
 //                Log.e("start", textViewStartDate.getText().toString());
 //                Log.e("cal", dateFormat.format(calendar.getTime()));
-                calendar.setTimeInMillis(term.getEndDate());
-                textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                    calendar.setTimeInMillis(term.getEndDate());
+                    textViewEndDate.setText((dateFormat.format(calendar.getTime())));
 //                Log.e("end", textViewEndDate.getText().toString());
 //                Log.e("cal", dateFormat.format(calendar.getTime()));
+                }
             }
         });
 
@@ -101,6 +103,7 @@ public class ViewTermActivity extends AppCompatActivity {
             public void onClick(View v) {
                 Toast.makeText(ViewTermActivity.this, "Delete Term", Toast.LENGTH_SHORT).show();
                 term = createTerm();
+                term.setId(id);
 
 
 
@@ -136,8 +139,8 @@ public class ViewTermActivity extends AppCompatActivity {
 //
 //
 //
-//                termViewModel.delete(term);
-//                finish();
+                termViewModel.deleteTerm(term);
+                finish();
             }
         });
 

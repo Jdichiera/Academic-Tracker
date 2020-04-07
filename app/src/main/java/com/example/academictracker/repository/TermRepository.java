@@ -30,7 +30,7 @@ public class TermRepository {
         new UpdateTermAsyncTask(termDao).execute(term);
     }
 
-    public void delete(Term term) {
+    public void deleteTerm(Term term) {
         new DeleteTermAsyncTask(termDao).execute(term);
     }
 
@@ -80,7 +80,7 @@ public class TermRepository {
         }
         @Override
         protected Void doInBackground(Term... terms) {
-            termDao.delete(terms[0]);
+            termDao.deleteTerm(terms[0]);
             return null;
         }
     }

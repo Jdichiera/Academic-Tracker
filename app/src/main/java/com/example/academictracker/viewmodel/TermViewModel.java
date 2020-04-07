@@ -30,8 +30,8 @@ public class TermViewModel extends AndroidViewModel {
         repository.update(term);
     }
 
-    public void delete(Term term) {
-        repository.delete(term);
+    public void deleteTerm(Term term) {
+        repository.deleteTerm(term);
     }
 
     public void deleteAllTerms() {
