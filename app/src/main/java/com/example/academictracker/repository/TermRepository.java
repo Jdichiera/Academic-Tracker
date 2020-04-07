@@ -32,7 +32,10 @@ public class TermRepository {
 
     public void delete(Term term) {
         new DeleteTermAsyncTask(termDao).execute(term);
+    }
 
+    public LiveData<Term> getTerm(int id) {
+        return termDao.getTerm(id);
     }
 
     public void deleteAllTerms() {

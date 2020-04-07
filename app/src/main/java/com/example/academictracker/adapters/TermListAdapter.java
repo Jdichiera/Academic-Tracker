@@ -46,7 +46,6 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermLi
     }
 
     public void setTerms(List<Term> terms) {
-        Log.i("Terms", String.valueOf(terms.size()));
         this.terms = terms;
         notifyDataSetChanged();
     }
@@ -94,7 +93,6 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermLi
         public void onClick(View v) {
 
         }
-
     }
 
     public interface OnItemClickListener {

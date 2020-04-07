@@ -27,4 +27,7 @@ public interface TermDao {
 
     @Query("SELECT * FROM terms_table")
     LiveData<List<Term>> getAllTerms();
+
+    @Query("SELECT * FROM terms_table WHERE id = :id")
+    LiveData<Term> getTerm(int id);
 }

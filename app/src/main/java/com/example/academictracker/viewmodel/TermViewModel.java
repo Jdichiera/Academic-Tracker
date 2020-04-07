@@ -13,6 +13,7 @@ import java.util.List;
 
 public class TermViewModel extends AndroidViewModel {
     private TermRepository repository;
+    private Term term;
     private LiveData<List<Term>> allTerms;
 
     public TermViewModel(@NonNull Application application) {
@@ -35,6 +36,10 @@ public class TermViewModel extends AndroidViewModel {
 
     public void deleteAllTerms() {
         repository.deleteAllTerms();
+    }
+
+    public LiveData<Term> getTerm(int id) {
+        return repository.getTerm(id);
     }
 
     public LiveData<List<Term>> getAllTerms() {

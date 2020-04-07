@@ -37,6 +37,8 @@ public class AddEditTermActivity extends AppCompatActivity {
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Term");
             Calendar calendar = Calendar.getInstance();
+            Log.e("WWWWWW", intent.getStringExtra(EXTRA_TITLE));
+            Log.e("EEE", String.valueOf(editTextTitle == null));
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             calendar.setTimeInMillis(intent.getLongExtra(EXTRA_START_DATE, 0));
             startDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
