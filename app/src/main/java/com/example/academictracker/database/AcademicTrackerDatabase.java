@@ -37,60 +37,60 @@ public abstract class AcademicTrackerDatabase extends RoomDatabase {
         @Override
         public void onCreate(SupportSQLiteDatabase db) {
             super.onCreate(db);
-            new PopulateDBAsyncTask(instance).execute();
+//            new PopulateDBAsyncTask(instance).execute();
         }
     };
 
-    private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TermDao termDao;
-
-        private PopulateDBAsyncTask(AcademicTrackerDatabase db) {
-            termDao = db.termDao();
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM.dd.yyyy");
-            termDao.insert(
-                    new Term(
-                            "Term 1 Title",
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli(),
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli()
-                    )
-            );
-            termDao.insert(
-                    new Term(
-                            "Term 2 Title",
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli(),
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli()
-                    )
-            );
-            termDao.insert(
-                    new Term(
-                            "Term 3 Title",
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli(),
-                            LocalDate.parse("01-01-2020", dateFormatter)
-                                    .atStartOfDay(ZoneOffset.UTC)
-                                    .toInstant()
-                                    .toEpochMilli()
-                    )
-            );
-            return null;
-        }
-    }
+//    private static class PopulateDBAsyncTask extends AsyncTask<Void, Void, Void> {
+//        private TermDao termDao;
+//
+//        private PopulateDBAsyncTask(AcademicTrackerDatabase db) {
+//            termDao = db.termDao();
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Void... voids) {
+////            DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("MM.dd.yyyy");
+////            termDao.insert(
+////                    new Term(
+////                            "Term 1 Title",
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli(),
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli()
+////                    )
+////            );
+////            termDao.insert(
+////                    new Term(
+////                            "Term 2 Title",
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli(),
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli()
+////                    )
+////            );
+////            termDao.insert(
+////                    new Term(
+////                            "Term 3 Title",
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli(),
+////                            LocalDate.parse("01-01-2020", dateFormatter)
+////                                    .atStartOfDay(ZoneOffset.UTC)
+////                                    .toInstant()
+////                                    .toEpochMilli()
+////                    )
+////            );
+//            return null;
+//        }
+//    }
 }
