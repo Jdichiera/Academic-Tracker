@@ -13,7 +13,7 @@ import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.entity.Course;
 import com.example.academictracker.entity.Term;
 
-@Database(entities = {Term.class, Course.class}, version = 2, exportSchema = false)
+@Database(entities = {Term.class, Course.class}, version = 3, exportSchema = false)
 public abstract class AcademicTrackerDatabase extends RoomDatabase {
     private static AcademicTrackerDatabase instance;
 

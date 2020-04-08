@@ -8,7 +8,7 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "courses_table")
 public class Course {
     public enum CourseStatus {
-        STARTED, IN_PROGRESS, COMPLETED, DROPPED
+        NOT_STARTED , IN_PROGRESS, COMPLETED, DROPPED
     }
 
     @PrimaryKey(autoGenerate = true)
@@ -19,16 +19,16 @@ public class Course {
     private long courseEndDate;
     private String courseStatus;
     private String courseMentorName;
-    private String courseMentorNumber;
+    private String courseMentorPhone;
     private String courseMentorEmail;
 
-    public Course(String courseTitle, long courseStartDate, long courseEndDate, String courseStatus, String courseMentorName, String courseMentorNumber, String courseMentorEmail) {
+    public Course(String courseTitle, long courseStartDate, long courseEndDate, String courseStatus, String courseMentorName, String courseMentorPhone, String courseMentorEmail) {
         this.courseTitle = courseTitle;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
         this.courseStatus = courseStatus;
         this.courseMentorName = courseMentorName;
-        this.courseMentorNumber = courseMentorNumber;
+        this.courseMentorPhone = courseMentorPhone;
         this.courseMentorEmail = courseMentorEmail;
     }
 
@@ -68,8 +68,8 @@ public class Course {
         return this.courseMentorName;
     }
 
-    public String getCourseMentorNumber() {
-        return this.courseMentorNumber;
+    public String getCourseMentorPhone() {
+        return this.courseMentorPhone;
     }
 
     public String getCourseMentorEmail() {

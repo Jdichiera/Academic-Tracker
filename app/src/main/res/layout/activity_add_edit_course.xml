@@ -116,19 +116,30 @@
         android:text="Course Status:"
         android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
 
-    <EditText
-        android:id="@+id/course_add_status"
-        android:layout_width="match_parent"
+    <Spinner
+        android:id="@+id/course_add_status_spinner"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignBottom="@id/course_add_status_prompt"
         android:layout_below="@id/course_add_mentor_phone"
         android:layout_alignParentEnd="true"
         android:layout_marginLeft="20dp"
         android:layout_toEndOf="@id/course_add_status_prompt"
-        android:importantForAutofill="no"
-        android:inputType="text"
-        android:textAlignment="viewEnd"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+        />
+
+<!--    <EditText-->
+<!--        android:id="@+id/course_add_status"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignBottom="@id/course_add_status_prompt"-->
+<!--        android:layout_below="@id/course_add_mentor_phone"-->
+<!--        android:layout_alignParentEnd="true"-->
+<!--        android:layout_marginLeft="20dp"-->
+<!--        android:layout_toEndOf="@id/course_add_status_prompt"-->
+<!--        android:importantForAutofill="no"-->
+<!--        android:inputType="text"-->
+<!--        android:textAlignment="viewEnd"-->
+<!--        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />-->
 
     <TextView
         android:id="@+id/course_add_start_prompt"
@@ -145,7 +156,7 @@
         android:id="@+id/course_add_start"
         android:layout_width="wrap_content"
         android:layout_height="125dp"
-        android:layout_below="@id/course_add_status"
+        android:layout_below="@id/course_add_status_spinner"
         android:layout_alignParentEnd="true"
         android:calendarViewShown="false"
         android:datePickerMode="spinner"

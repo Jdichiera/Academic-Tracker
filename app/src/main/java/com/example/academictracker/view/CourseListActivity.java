@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -28,14 +29,15 @@ public class CourseListActivity extends AppCompatActivity {
     public static final int ADD_COURSE_REQUEST = 1;
     public static final int EDIT_COURSE_REQUEST = 2;
     private CourseViewModel courseViewModel;
-    Intent intent = getIntent();
-    int termId = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+
+//    int termId = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
-
+        Intent intent = getIntent();
+        Log.e("AAA", "id :" + intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1));
         FloatingActionButton buttonAddCourse = findViewById(R.id.button_list_add_course);
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -63,7 +65,7 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
-        courseViewModel = ViewModelProviders.of(this, new CourseViewModelFactory(this.getApplication(), termId)).get(CourseViewModel.class);
+        courseViewModel = ViewModelProviders.of(this, new CourseViewModelFactory(this.getApplication(), 1)).get(CourseViewModel.class);
         courseViewModel.getAllCoursesForTerm().observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
