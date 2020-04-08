@@ -5,9 +5,9 @@ import androidx.room.PrimaryKey;
 
 
 
-@Entity(tableName = "course_table")
+@Entity(tableName = "courses_table")
 public class Course {
-    enum CourseStatus {
+    public enum CourseStatus {
         STARTED, IN_PROGRESS, COMPLETED, DROPPED
     }
 
@@ -17,12 +17,12 @@ public class Course {
     private String courseTitle;
     private long courseStartDate;
     private long courseEndDate;
-    private CourseStatus courseStatus;
+    private String courseStatus;
     private String courseMentorName;
     private String courseMentorNumber;
     private String courseMentorEmail;
 
-    public Course(String courseTitle, long courseStartDate, long courseEndDate, CourseStatus courseStatus, String courseMentorName, String courseMentorNumber, String courseMentorEmail) {
+    public Course(String courseTitle, long courseStartDate, long courseEndDate, String courseStatus, String courseMentorName, String courseMentorNumber, String courseMentorEmail) {
         this.courseTitle = courseTitle;
         this.courseStartDate = courseStartDate;
         this.courseEndDate = courseEndDate;
@@ -60,7 +60,7 @@ public class Course {
         return this.courseEndDate;
     }
 
-    public CourseStatus getCourseStatus() {
+    public String getCourseStatus() {
         return this.courseStatus;
     }
 

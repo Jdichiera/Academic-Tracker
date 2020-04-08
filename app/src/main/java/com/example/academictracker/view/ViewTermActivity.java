@@ -14,6 +14,7 @@ import android.widget.Toast;
 
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
+import com.example.academictracker.viewmodel.CourseViewModel;
 import com.example.academictracker.viewmodel.TermViewModel;
 
 import java.text.ParseException;
@@ -65,7 +66,11 @@ public class ViewTermActivity extends AppCompatActivity {
         buttonViewCourseList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewTermActivity.this, "View Courses", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ViewTermActivity.this, "View Courses: " + id, Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewTermActivity.this, CourseListActivity.class);
+                // TODO : make this name better
+//                intent.putExtra(AddEditTermActivity.EXTRA_ID, id);
+//                startActivity(intent);
             }
         });
 

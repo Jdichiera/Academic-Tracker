@@ -4,16 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".view.TermListActivity">
+    tools:context=".view.CourseListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/term_list_recyclerview"
+        android:id="@+id/course_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:listitem="@layout/term_item"/>
+        tools:listitem="@layout/course_item"/>
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/button_list_add_term"
+        android:id="@+id/button_list_add_course"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add"

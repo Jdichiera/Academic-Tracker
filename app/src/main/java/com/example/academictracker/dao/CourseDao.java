@@ -22,12 +22,12 @@ public interface CourseDao {
     @Delete
     void deleteCourse(Course course);
 
-    @Query("DELETE FROM course_table")
+    @Query("DELETE FROM courses_table")
     void deleteAllCourses();
 
-    @Query("SELECT * FROM course_table WHERE termId = :termId")
+    @Query("SELECT * FROM courses_table WHERE termId = :termId")
     LiveData<List<Course>> getAllCoursesForTerm(int termId);
 
-    @Query("SELECT * FROM course_table WHERE courseId = :courseId")
+    @Query("SELECT * FROM courses_table WHERE courseId = :courseId")
     LiveData<Course> getCourse(int courseId);
 }

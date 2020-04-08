@@ -3,8 +3,6 @@ package com.example.academictracker.entity;
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 @Entity(tableName = "terms_table")
 public class Term {
     @PrimaryKey(autoGenerate = true)

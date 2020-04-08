@@ -17,7 +17,7 @@ import java.util.List;
 
 public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermListHolder> {
     private List<Term> terms = new ArrayList<>();
-    OnItemClickListener listener;
+    private OnItemClickListener listener;
 
     @NonNull
     @Override
@@ -58,17 +58,15 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermLi
         private TextView termViewTitle;
         private TextView termViewStartDate;
         private TextView termViewEndDate;
-        private Button buttonEditTerm;
-        private Button buttonViewTerm;
 
-        public TermListHolder(@NonNull View itemView) {
+        TermListHolder(@NonNull View itemView) {
             super(itemView);
 
             termViewTitle = itemView.findViewById(R.id.term_title);
             termViewStartDate = itemView.findViewById(R.id.term_start_date);
             termViewEndDate = itemView.findViewById(R.id.term_end_date);
-            buttonViewTerm = itemView.findViewById(R.id.button_term_view_term);
-            buttonEditTerm = itemView.findViewById(R.id.button_term_edit_term);
+            Button buttonViewTerm = itemView.findViewById(R.id.button_term_view_term);
+            Button buttonEditTerm = itemView.findViewById(R.id.button_term_edit_term);
             buttonEditTerm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

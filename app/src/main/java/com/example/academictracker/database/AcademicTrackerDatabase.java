@@ -8,18 +8,17 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.example.academictracker.dao.CourseDao;
 import com.example.academictracker.dao.TermDao;
+import com.example.academictracker.entity.Course;
 import com.example.academictracker.entity.Term;
 
-import java.time.LocalDate;
-import java.time.ZoneOffset;
-import java.time.format.DateTimeFormatter;
-
-@Database(entities = {Term.class}, version = 1, exportSchema = false)
+@Database(entities = {Term.class, Course.class}, version = 2, exportSchema = false)
 public abstract class AcademicTrackerDatabase extends RoomDatabase {
     private static AcademicTrackerDatabase instance;
 
     public abstract TermDao termDao();
+    public abstract CourseDao courseDao();
 
     public static synchronized AcademicTrackerDatabase getInstance(Context context) {
         if (instance == null) {
