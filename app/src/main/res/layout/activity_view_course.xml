@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ViewCourseActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/course_view_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Some Course Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/term_view_start_date_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/course_view_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="3dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Course Start" />
+
+        <TextView
+            android:id="@+id/term_view_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_start_date_prompt"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:text="01-01-2020"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/term_view_end_date_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_start_date_prompt"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Course End" />
+
+        <TextView
+            android:id="@+id/term_view_end_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_end_date_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:text="04-01-2020" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_name_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_end_date_prompt"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Mentor Name" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_mentor_name_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:maxLength="22"
+            android:text="James Tabor" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_email_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_mentor_name_prompt"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Mentor Email" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_email"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_mentor_email_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:maxLength="22"
+            android:text="James.Tabor@email.com" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_phone_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_mentor_email"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Mentor Phone" />
+
+        <TextView
+            android:id="@+id/term_view_mentor_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_mentor_phone_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:maxLength="18"
+            android:text="1-222-333-4444" />
+
+        <TextView
+            android:id="@+id/term_view_course_status_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_mentor_phone_prompt"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="20dp"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:text="Course Status" />
+
+        <TextView
+            android:id="@+id/term_view_course_status"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/term_view_course_status_prompt"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+            android:layout_alignParentEnd="true"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp"
+            android:text="In Progress" />
+
+        <Button
+            android:id="@+id/button_view_course_set_notification"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_view_course_status_prompt"
+            android:text="Set Notification"
+            android:layout_marginTop="50dp"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp" />
+
+        <Button
+            android:id="@+id/button_view_course_note"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_view_course_set_notification"
+            android:text="Course Note"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="35dp" />
+
+        <Button
+            android:id="@+id/button_view_course_assessments"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_view_course_set_notification"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Assessments" />
+
+        <Button
+            android:id="@+id/button_view_edit_course"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_view_course_note"
+            android:text="Edit Course"
+            android:layout_marginTop="10dp"
+            android:layout_marginStart="35dp" />
+
+        <Button
+            android:id="@+id/button_view_delete_course"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/button_view_course_assessments"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="35dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#AC5454"
+            android:text="Delete Course"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

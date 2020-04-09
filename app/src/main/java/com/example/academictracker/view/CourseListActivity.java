@@ -56,13 +56,12 @@ public class CourseListActivity extends AppCompatActivity {
         adapter.setOnItemClickListener(new CourseListAdapter.OnItemClickListener() {
             @Override
             public void onEditClick(Course course) {
-                Toast.makeText(CourseListActivity.this, "Edit Course", Toast.LENGTH_SHORT).show();
                 editCourse(course);
             }
 
             @Override
             public void onViewClick(Course course) {
-                Toast.makeText(CourseListActivity.this, "View Course", Toast.LENGTH_SHORT).show();
+                viewCourse(course);
             }
         });
 
@@ -132,6 +131,20 @@ public class CourseListActivity extends AppCompatActivity {
         intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
         intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
         startActivityForResult(intent, EDIT_COURSE_REQUEST);
+    }
+
+    private void viewCourse(Course course) {
+        Intent intent = new Intent(CourseListActivity.this, ViewCourseActivity.class);
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+        startActivity(intent);
     }
 }
 
