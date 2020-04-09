@@ -30,19 +30,19 @@ public class CourseListActivity extends AppCompatActivity {
     public static final int EDIT_COURSE_REQUEST = 2;
     private CourseViewModel courseViewModel;
 
-//    int termId = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_course_list);
         Intent intent = getIntent();
+        final int termId = intent.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
         Log.e("AAA", "id :" + intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1));
         FloatingActionButton buttonAddCourse = findViewById(R.id.button_list_add_course);
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(CourseListActivity.this, AddEditCourseActivity.class);
+                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, termId);
                 startActivityForResult(intent, ADD_COURSE_REQUEST);
             }
         });
@@ -57,6 +57,7 @@ public class CourseListActivity extends AppCompatActivity {
             @Override
             public void onEditClick(Course course) {
                 Toast.makeText(CourseListActivity.this, "Edit Course", Toast.LENGTH_SHORT).show();
+                editCourse(course);
             }
 
             @Override
@@ -80,30 +81,57 @@ public class CourseListActivity extends AppCompatActivity {
         String title;
         long startDate;
         long endDate;
+        String mentorName;
+        String mentorEmail;
+        String mentorPhone;
+        String courseStatus;
+        int termId;
 
         if (resultCode == RESULT_OK) {
-//            title = data.getStringExtra(AddEditCourseActivity.EXTRA_TITLE);
-//            startDate = data.getLongExtra(AddEditCourseActivity.EXTRA_START_DATE, 0);
-//            endDate = data.getLongExtra(AddEditCourseActivity.EXTRA_END_DATE, 0);
-//            Course course = new Course(title, startDate, endDate);
-//
-//            if (requestCode == ADD_TERM_REQUEST) {
-//                courseViewModel.insert(course);
-//                Toast.makeText(this, "Course Added : " + title, Toast.LENGTH_SHORT).show();
-//            } else if (requestCode == EDIT_TERM_REQUEST) {
-//                int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
-//
-//                if (id == -1) {
-//                    Toast.makeText(this, "Course cannot be updated", Toast.LENGTH_SHORT).show();
-//                    return;
-//                }
-//
-//                course.setCourseId(id);
-//                courseViewModel.update(course);
-                Toast.makeText(this, "Course Updated : " , Toast.LENGTH_SHORT).show();
+            title = data.getStringExtra(AddEditCourseActivity.EXTRA_TITLE);
+            startDate = data.getLongExtra(AddEditCourseActivity.EXTRA_START_DATE, 0);
+            endDate = data.getLongExtra(AddEditCourseActivity.EXTRA_END_DATE, 0);
+            mentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME);
+            mentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL);
+            mentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE);
+            courseStatus = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS);
+            termId = data.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
+
+            Course course = new Course(title, startDate, endDate, courseStatus, mentorName, mentorPhone, mentorEmail);
+            course.setTermId(termId);
+
+            if (requestCode == ADD_COURSE_REQUEST) {
+                courseViewModel.insert(course);
+                Toast.makeText(this, "Course Added : " + title, Toast.LENGTH_SHORT).show();
+            } else if (requestCode == EDIT_COURSE_REQUEST) {
+                int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+
+                if (id == -1) {
+                    Toast.makeText(this, "Course cannot be updated", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                course.setCourseId(id);
+                courseViewModel.update(course);
+                Toast.makeText(this, "Course Updated : ", Toast.LENGTH_SHORT).show();
             } else {
                 Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
             }
         }
     }
+
+    private void editCourse(Course course) {
+        Intent intent = new Intent(CourseListActivity.this, AddEditCourseActivity.class);
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+        startActivityForResult(intent, EDIT_COURSE_REQUEST);
+    }
+}
 

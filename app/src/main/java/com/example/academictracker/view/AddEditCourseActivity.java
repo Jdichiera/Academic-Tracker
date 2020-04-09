@@ -25,8 +25,9 @@ public class AddEditCourseActivity extends AppCompatActivity {
     public static final String EXTRA_END_DATE = "com.example.academictracker.view.EXTRA_END_DATE";
     public static final String EXTRA_MENTOR_NAME = "com.example.academictracker.view.EXTRA_MENTOR_NAME";
     public static final String EXTRA_MENTOR_EMAIL = "com.example.academictracker.view.EXTRA_MENTOR_EMAIL";
-    public static final String EXTRA_MENTOR_NUMBER = "com.example.academictracker.view.EXTRA_MENTOR_NUMBER";
+    public static final String EXTRA_MENTOR_PHONE = "com.example.academictracker.view.EXTRA_MENTOR_PHONE";
     public static final String EXTRA_COURSE_STATUS = "com.example.academictracker.view.EXTRA_COURSE_STATUS";
+    public static final String EXTRA_TERM_ID = "com.example.academictracker.view.EXTRA_TERM_ID";
 
     DatePicker datePickerStartDate;
     DatePicker datePickerEndDate;
@@ -36,14 +37,16 @@ public class AddEditCourseActivity extends AppCompatActivity {
     EditText editTextMentorPhone;
     private ArrayList<CourseStatusItem> courseStatusList;
     private CourseStatusAdapter courseStatusAdapter;
+    Spinner spinnerCourseStatus;
+    String courseStatus;
+    int termId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_edit_course);
-
         initList();
-        Spinner spinnerCourseStatus = findViewById(R.id.course_add_status_spinner);
+        spinnerCourseStatus = findViewById(R.id.course_add_status_spinner);
         courseStatusAdapter = new CourseStatusAdapter(this, courseStatusList);
         spinnerCourseStatus.setAdapter(courseStatusAdapter);
 
@@ -52,7 +55,9 @@ public class AddEditCourseActivity extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CourseStatusItem clickedStatus = (CourseStatusItem) parent.getItemAtPosition(position);
                 String courseStatusName = clickedStatus.getCourseStatusName();
-                Toast.makeText(AddEditCourseActivity.this, courseStatusName, Toast.LENGTH_SHORT).show();
+                courseStatus = clickedStatus.getCourseStatusName();
+                Toast.makeText(AddEditCourseActivity.this, courseStatus, Toast.LENGTH_SHORT).show();
+//                Toast.makeText(AddEditCourseActivity.this, courseStatusName, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -67,21 +72,27 @@ public class AddEditCourseActivity extends AppCompatActivity {
         editTextMentorName = findViewById(R.id.course_add_mentor_name);
         editTextMentorEmail = findViewById(R.id.course_add_mentor_email);
         editTextMentorPhone = findViewById(R.id.course_add_mentor_phone);
-//        editTextCourseStatus = findViewById(R.id.course_add_status_spinner);
 
         Intent intent = getIntent();
+        termId = intent.getIntExtra(EXTRA_TERM_ID, -1);
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Course");
             Calendar calendar = Calendar.getInstance();
             editTextTitle.setText(intent.getStringExtra(EXTRA_TITLE));
             editTextMentorName.setText(intent.getStringExtra(EXTRA_MENTOR_NAME));
             editTextMentorEmail.setText(intent.getStringExtra(EXTRA_MENTOR_EMAIL));
-            editTextMentorPhone.setText(intent.getStringExtra(EXTRA_MENTOR_NUMBER));
-//            editTextCourseStatus.setText(intent.getStringExtra(EXTRA_COURSE_STATUS));
+            editTextMentorPhone.setText(intent.getStringExtra(EXTRA_MENTOR_PHONE));
             calendar.setTimeInMillis(intent.getLongExtra(EXTRA_START_DATE, 0));
             datePickerStartDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
             calendar.setTimeInMillis(intent.getLongExtra(EXTRA_END_DATE, 0));
             datePickerEndDate.updateDate(calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH));
+            int spinnerPosition = 0;
+            for (int i = 0; i < courseStatusList.size(); i++) {
+                if (courseStatusList.get(i).getCourseStatusName().equals(intent.getStringExtra(EXTRA_COURSE_STATUS))) {
+                    spinnerPosition = i;
+                }
+            }
+            spinnerCourseStatus.setSelection(spinnerPosition);
         } else {
             setTitle("Add Course");
         }
@@ -99,7 +110,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
         String mentorName = editTextMentorName.getText().toString();
         String mentorEmail = editTextMentorEmail.getText().toString();
         String mentorPhone = editTextMentorPhone.getText().toString();
-//        String courseStatus = editTextCourseStatus.getText().toString();
+//        String courseStatus = spinnerCourseStatus.getSelectedItem().toString();
 
         if (title.trim().isEmpty()) {
             Toast.makeText(this, "Please enter a title before saving.", Toast.LENGTH_SHORT).show();
@@ -110,6 +121,11 @@ public class AddEditCourseActivity extends AppCompatActivity {
         data.putExtra(EXTRA_TITLE, title);
         data.putExtra(EXTRA_START_DATE, startDateLong);
         data.putExtra(EXTRA_END_DATE, endDateLong);
+        data.putExtra(EXTRA_MENTOR_NAME, mentorName);
+        data.putExtra(EXTRA_MENTOR_EMAIL, mentorEmail);
+        data.putExtra(EXTRA_MENTOR_PHONE, mentorPhone);
+        data.putExtra(EXTRA_COURSE_STATUS, courseStatus);
+        data.putExtra(EXTRA_TERM_ID, termId);
 
         // If we are in an update scenario - pass the ID so we know that we are updating a term
         // We pass a -1 default in

@@ -69,7 +69,7 @@ public class ViewTermActivity extends AppCompatActivity {
                 Toast.makeText(ViewTermActivity.this, "View Courses: " + id, Toast.LENGTH_SHORT).show();
                 Intent intent = new Intent(ViewTermActivity.this, CourseListActivity.class);
                 // TODO : make this name better
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, id);
+                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, id);
                 startActivity(intent);
             }
 
