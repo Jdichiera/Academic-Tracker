@@ -21,6 +21,11 @@ public class CourseViewModel extends AndroidViewModel {
         allCoursesForTerm = repository.getAllCoursesForTerm();
     }
 
+    public CourseViewModel(Application application) {
+        super(application);
+        repository = new CourseRepository(application);
+    }
+
     public void insert(Course course) {
         repository.insert(course);
     }

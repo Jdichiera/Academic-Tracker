@@ -21,6 +21,11 @@ public class CourseRepository {
         allCoursesForTerm = courseDao.getAllCoursesForTerm(termId);
     }
 
+    public CourseRepository(Application application) {
+        AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
+        courseDao = database.courseDao();
+    }
+
     public void insert(Course course) {
         new InsertCourseAsyncTask(courseDao).execute(course);
     }

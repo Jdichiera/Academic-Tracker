@@ -13,7 +13,6 @@ import java.util.List;
 
 public class TermViewModel extends AndroidViewModel {
     private TermRepository repository;
-    private Term term;
     private LiveData<List<Term>> allTerms;
 
     public TermViewModel(@NonNull Application application) {

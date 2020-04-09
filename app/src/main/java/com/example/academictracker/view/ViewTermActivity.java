@@ -6,7 +6,6 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -14,13 +13,11 @@ import android.widget.Toast;
 
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
-import com.example.academictracker.viewmodel.CourseViewModel;
 import com.example.academictracker.viewmodel.TermViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Date;
 
 public class ViewTermActivity extends AppCompatActivity {
     private Term term;
@@ -45,7 +42,7 @@ public class ViewTermActivity extends AppCompatActivity {
 
         textViewTitle = findViewById(R.id.term_view_title);
         textViewStartDate = findViewById(R.id.term_view_start_date);
-        textViewEndDate = findViewById(R.id.term_view_end_date);
+        textViewEndDate = findViewById(R.id.course_view_end_date);
         Button buttonViewCourseList = findViewById(R.id.button_view_course_list);
         Button buttonDeleteTerm = findViewById(R.id.button_view_delete_term);
         Button buttonEditTerm = findViewById(R.id.button_view_edit_term);

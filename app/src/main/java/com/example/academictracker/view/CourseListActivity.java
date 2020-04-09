@@ -65,7 +65,7 @@ public class CourseListActivity extends AppCompatActivity {
             }
         });
 
-        courseViewModel = ViewModelProviders.of(this, new CourseViewModelFactory(this.getApplication(), 1)).get(CourseViewModel.class);
+        courseViewModel = ViewModelProviders.of(this, new CourseViewModelFactory(this.getApplication(), termId)).get(CourseViewModel.class);
         courseViewModel.getAllCoursesForTerm().observe(this, new Observer<List<Course>>() {
             @Override
             public void onChanged(List<Course> courses) {
