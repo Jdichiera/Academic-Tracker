@@ -14,6 +14,7 @@ import android.widget.Toast;
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.CourseStatusAdapter;
 import com.example.academictracker.adapters.CourseStatusItem;
+import com.example.academictracker.entity.Course;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -140,9 +141,8 @@ public class AddEditCourseActivity extends AppCompatActivity {
 
     private void initList() {
         this.courseStatusList = new ArrayList<>();
-        this.courseStatusList.add(new CourseStatusItem("Not Started"));
-        this.courseStatusList.add(new CourseStatusItem("In Progress"));
-        this.courseStatusList.add(new CourseStatusItem("Completed"));
-        this.courseStatusList.add(new CourseStatusItem("Dropped"));
+        for (Course.CourseStatus status : Course.CourseStatus.values()) {
+            this.courseStatusList.add(new CourseStatusItem(status.label));
+        }
     }
 }

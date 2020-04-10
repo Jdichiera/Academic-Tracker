@@ -42,6 +42,9 @@ public class CourseRepository {
         return courseDao.getCourse(id);
     }
 
+    public void setCourseStatus(int id, String status) {
+        courseDao.setCourseStatus(id, status);
+    }
     public void deleteAllCourses() {
         new DeleteAllCoursesAsyncTask(courseDao).execute();
     }

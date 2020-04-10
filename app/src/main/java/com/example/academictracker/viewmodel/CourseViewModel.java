@@ -37,6 +37,10 @@ public class CourseViewModel extends AndroidViewModel {
     public void deleteCourse(Course course) {
         repository.deleteCourse(course);
     }
+
+    public void setCourseStatus(int id, String status) {
+        repository.setCourseStatus(id, status);
+    }
     public void deleteAllCourses() {
         repository.deleteAllCourses();
     }

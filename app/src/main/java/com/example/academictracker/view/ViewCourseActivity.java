@@ -1,5 +1,6 @@
 package com.example.academictracker.view;
 
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
@@ -7,6 +8,9 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -71,7 +75,7 @@ public class ViewCourseActivity extends AppCompatActivity {
                     textViewMentorName.setText(course.getCourseMentorName());
                     textViewMentorPhone.setText(course.getCourseMentorPhone());
                     textViewMentorEmail.setText(course.getCourseMentorEmail());
-                    textViewCourseStatus.setText(course.getCourseMentorEmail());
+                    textViewCourseStatus.setText(course.getCourseStatus());
                 }
             }
         });
@@ -93,18 +97,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonEditCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(ViewCourseActivity.this, AddEditCourseActivity.class);
-                Course course = createCourse();
-                intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
-                intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
-                intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
-                intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
-                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
-                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
-                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
-                intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
-                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
-                startActivityForResult(intent, EDIT_COURSE_REQUEST);
+                editCourse();
             }
         });
 
@@ -118,10 +111,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonDeleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Course course = createCourse();
-                course.setCourseId(courseId);
-                courseViewModel.deleteCourse(course);
-                finish();
+                deleteCourse();
             }
         });
     }
@@ -162,6 +152,61 @@ public class ViewCourseActivity extends AppCompatActivity {
             Toast.makeText(this, "Course Updated : ", Toast.LENGTH_SHORT).show();
         } else {
             Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater menuInflater = getMenuInflater();
+        menuInflater.inflate(R.menu.view_course_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.menu_edit_course:
+                editCourse();
+                return true;
+            case R.id.menu_delete_course:
+                deleteCourse();
+                return true;
+            case R.id.menu_set_course_status:
+                setCourseStatus();
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void editCourse() {
+        Intent intent = new Intent(ViewCourseActivity.this, AddEditCourseActivity.class);
+        Course course = createCourse();
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+        startActivityForResult(intent, EDIT_COURSE_REQUEST);
+    }
+
+    private void deleteCourse() {
+        Course course = createCourse();
+        course.setCourseId(courseId);
+        courseViewModel.deleteCourse(course);
+        finish();
+    }
+
+    private void setCourseStatus() {
+        String newCourseStatus;
+        int currentStatusPosition = Course.CourseStatus.valueOfLabel(textViewCourseStatus.getText().toString()).ordinal();
+        if (currentStatusPosition < Course.CourseStatus.values().length) {
+            newCourseStatus = Course.CourseStatus.values()[currentStatusPosition++].label;
+            courseViewModel.setCourseStatus(courseId, newCourseStatus);
         }
     }
 

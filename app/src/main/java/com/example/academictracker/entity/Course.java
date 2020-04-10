@@ -8,7 +8,26 @@ import androidx.room.PrimaryKey;
 @Entity(tableName = "courses_table")
 public class Course {
     public enum CourseStatus {
-        NOT_STARTED , IN_PROGRESS, COMPLETED, DROPPED
+        NOT_STARTED("Not Started"),
+        IN_PROGRESS("In Progress"),
+        COMPLETED("Completed"),
+        DROPPED("Dropped");
+
+        public final String label;
+
+        private CourseStatus(String label) {
+            this.label = label;
+        }
+
+        public static CourseStatus valueOfLabel(String label) {
+            for (CourseStatus status : values()) {
+                if (status.label.equals(label)) {
+                    return status;
+                }
+            }
+
+            return null;
+        }
     }
 
     @PrimaryKey(autoGenerate = true)

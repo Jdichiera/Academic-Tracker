@@ -30,4 +30,7 @@ public interface CourseDao {
 
     @Query("SELECT * FROM courses_table WHERE courseId = :courseId")
     LiveData<Course> getCourse(int courseId);
+
+    @Query("UPDATE courses_table SET courseStatus = :status WHERE courseId = :id")
+    void setCourseStatus(int id, String status);
 }
