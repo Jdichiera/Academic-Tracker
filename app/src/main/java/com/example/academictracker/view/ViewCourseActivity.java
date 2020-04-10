@@ -1,8 +1,8 @@
 package com.example.academictracker.view;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -16,14 +16,14 @@ import com.example.academictracker.R;
 import com.example.academictracker.entity.Course;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.CourseViewModel;
-import com.example.academictracker.viewmodel.TermViewModel;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ViewCourseActivity extends AppCompatActivity {
-    private int id;
-    private Course course;
+    private int courseId;
+    private int termId;
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
@@ -48,7 +48,8 @@ public class ViewCourseActivity extends AppCompatActivity {
         Button buttonViewCourseAssessments = findViewById(R.id.button_view_course_assessments);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
+        courseId = intent.getIntExtra(AddEditCourseActivity.EXTRA_ID, -1);
+        termId = intent.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
         textViewTitle = findViewById(R.id.course_view_title);
         textViewStartDate = findViewById(R.id.course_view_start_date);
         textViewEndDate = findViewById(R.id.course_view_end_date);
@@ -58,7 +59,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         textViewCourseStatus = findViewById(R.id.course_view_course_status);
 
         courseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
-        courseViewModel.getCourse(id).observe(this, new Observer<Course>() {
+        courseViewModel.getCourse(courseId).observe(this, new Observer<Course>() {
             @Override
             public void onChanged(Course course) {
                 if (course != null) {
@@ -92,7 +93,18 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonEditCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "Edit Course", Toast.LENGTH_SHORT).show();
+                Intent intent = new Intent(ViewCourseActivity.this, AddEditCourseActivity.class);
+                Course course = createCourse();
+                intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+                intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+                intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+                intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+                intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+                intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+                startActivityForResult(intent, EDIT_COURSE_REQUEST);
             }
         });
 
@@ -109,7 +121,75 @@ public class ViewCourseActivity extends AppCompatActivity {
                 Toast.makeText(ViewCourseActivity.this, "Delete Course", Toast.LENGTH_SHORT).show();
             }
         });
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String title;
+        long startDate;
+        long endDate;
+        String mentorName;
+        String mentorEmail;
+        String mentorPhone;
+        String courseStatus;
+        int termId;
+
+        if (resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+            title = data.getStringExtra(AddEditCourseActivity.EXTRA_TITLE);
+            startDate = data.getLongExtra(AddEditCourseActivity.EXTRA_START_DATE, 0);
+            endDate = data.getLongExtra(AddEditCourseActivity.EXTRA_END_DATE, 0);
+            mentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME);
+            mentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL);
+            mentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE);
+            courseStatus = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS);
+            termId = data.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
+
+            Course course = new Course(title, startDate, endDate, courseStatus, mentorName, mentorPhone, mentorEmail);
+            course.setTermId(termId);
+
+            if (id == -1) {
+                Toast.makeText(this, "Course cannot be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            course.setCourseId(id);
+            courseViewModel.update(course);
+            Toast.makeText(this, "Course Updated : ", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    private Course createCourse() {
+        long startDateLong;
+        long endDateLong;
+        String title = textViewTitle.getText().toString();
+        String mentorName = textViewMentorName.getText().toString();
+        String mentorPhone = textViewMentorPhone.getText().toString();
+        String mentorEmail = textViewMentorEmail.getText().toString();
+        String courseStatus = textViewCourseStatus.getText().toString();
+
+        Calendar calendar = Calendar.getInstance();
+
+        try {
+            calendar.setTime(dateFormat.parse(textViewStartDate.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        startDateLong = calendar.getTimeInMillis();
+        try {
+            calendar.setTime(dateFormat.parse(textViewEndDate.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        endDateLong = calendar.getTimeInMillis();
 
 
+        Course course = new Course(title, startDateLong, endDateLong, courseStatus, mentorName, mentorPhone, mentorEmail);
+        course.setCourseId(courseId);
+        course.setTermId(termId);
+        return course;
     }
 }

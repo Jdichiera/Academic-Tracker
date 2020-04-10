@@ -111,9 +111,9 @@ public class TermListActivity extends AppCompatActivity {
     private void viewTerm(Term term) {
         Intent intent = new Intent(TermListActivity.this, ViewTermActivity.class);
         intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
-        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
-        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
+//        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+//        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
+//        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
         startActivity(intent);
     }
 }
