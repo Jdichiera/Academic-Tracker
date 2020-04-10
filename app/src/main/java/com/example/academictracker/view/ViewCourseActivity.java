@@ -118,7 +118,10 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonDeleteCourse.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "Delete Course", Toast.LENGTH_SHORT).show();
+                Course course = createCourse();
+                course.setCourseId(courseId);
+                courseViewModel.deleteCourse(course);
+                finish();
             }
         });
     }
