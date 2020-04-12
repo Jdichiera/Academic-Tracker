@@ -21,12 +21,14 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/course_note_view_note_text"
-            android:layout_width="wrap_content"
+            android:id="@+id/course_note_view_note_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/course_note_view_note_title"
             android:layout_marginStart="20dp"
+            android:layout_marginEnd="20dp"
             android:layout_marginTop="10dp"
+            android:textAlignment="viewEnd"
             android:maxLines="16"
             android:scrollbars="vertical" />
 
@@ -34,7 +36,7 @@
             android:id="@+id/button_view_course_note_share_note"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@id/course_note_view_note_text"
+            android:layout_below="@id/course_note_view_note_content"
             android:text="Share Note"
             android:layout_marginTop="50dp"
             android:layout_marginLeft="35dp"

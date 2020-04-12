@@ -10,12 +10,10 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.CourseStatusAdapter;
 import com.example.academictracker.adapters.CourseStatusItem;
 import com.example.academictracker.entity.Course;
-
 import java.util.ArrayList;
 import java.util.Calendar;
 
@@ -55,10 +53,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 CourseStatusItem clickedStatus = (CourseStatusItem) parent.getItemAtPosition(position);
-                String courseStatusName = clickedStatus.getCourseStatusName();
                 courseStatus = clickedStatus.getCourseStatusName();
-                Toast.makeText(AddEditCourseActivity.this, courseStatus, Toast.LENGTH_SHORT).show();
-//                Toast.makeText(AddEditCourseActivity.this, courseStatusName, Toast.LENGTH_SHORT).show();
             }
 
             @Override
@@ -76,6 +71,7 @@ public class AddEditCourseActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         termId = intent.getIntExtra(EXTRA_TERM_ID, -1);
+
         if (intent.hasExtra(EXTRA_ID)) {
             setTitle("Edit Course");
             Calendar calendar = Calendar.getInstance();

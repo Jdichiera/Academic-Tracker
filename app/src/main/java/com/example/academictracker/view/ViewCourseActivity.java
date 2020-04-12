@@ -232,7 +232,7 @@ public class ViewCourseActivity extends AppCompatActivity {
     private void viewCourseNote() {
         Intent intent = new Intent(ViewCourseActivity.this, ViewCourseNoteActivity.class);
         Course course = createCourse();
-        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseNoteActivity.EXTRA_COURSE_ID, course.getCourseId());
         startActivity(intent);
     }
 
