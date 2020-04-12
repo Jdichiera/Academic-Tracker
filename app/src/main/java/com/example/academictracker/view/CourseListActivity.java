@@ -36,7 +36,6 @@ public class CourseListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_course_list);
         Intent intent = getIntent();
         final int termId = intent.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
-        Log.e("AAA", "id :" + intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1));
         FloatingActionButton buttonAddCourse = findViewById(R.id.button_list_add_course);
         buttonAddCourse.setOnClickListener(new View.OnClickListener() {
             @Override

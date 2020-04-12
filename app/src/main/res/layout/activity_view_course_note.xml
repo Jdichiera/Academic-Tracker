@@ -17,7 +17,6 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="Some Course Note Title"
             android:textAppearance="@style/TextAppearance.AppCompat.Headline"
             android:textStyle="bold" />
 
@@ -29,8 +28,7 @@
             android:layout_marginStart="20dp"
             android:layout_marginTop="10dp"
             android:maxLines="16"
-            android:scrollbars="vertical"
-            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ultrices lacinia tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed quis vestibulum urna. Proin suscipit dapibus interdum. Donec in leo quam. Sed at ante ut massa vulputate feugiat. Suspendisse potenti. Sed scelerisque neque quis mi scelerisque ullamcorper. Aliquam molestie turpis felis, non sollicitudin est eleifend non. Lorem ipsum dolor sit amet, consectetur adipiscing elit. Maecenas ultrices lacinia tortor. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Sed quis vestibulum urna. Proin suscipit dapibus interdum. Donec in leo quam. Sed at ante ut massa vulputate feugiat. Suspendisse potenti. Sed scelerisque neque quis mi scelerisque ullamcorper. Aliquam molestie turpis felis, non sollicitudin est eleifend non." />
+            android:scrollbars="vertical" />
 
         <Button
             android:id="@+id/button_view_course_note_share_note"
@@ -47,7 +45,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/button_view_course_note_share_note"
-            android:text="Add / Edit Note"
             android:layout_marginTop="10dp"
             android:layout_marginLeft="35dp"
             android:layout_marginRight="35dp" />
