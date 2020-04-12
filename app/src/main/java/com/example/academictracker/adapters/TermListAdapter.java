@@ -1,6 +1,5 @@
 package com.example.academictracker.adapters;
 
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -50,9 +49,9 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermLi
         notifyDataSetChanged();
     }
 
-    public Term getTermAt(int position) {
-        return terms.get(position);
-    }
+//    public Term getTermAt(int position) {
+//        return terms.get(position);
+//    }
 
     class TermListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView termViewTitle;

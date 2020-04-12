@@ -100,7 +100,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonViewCourseAssessments.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "View Assessments", Toast.LENGTH_SHORT).show();
+                viewCourseAssessments();
             }
         });
 
@@ -241,6 +241,10 @@ public class ViewCourseActivity extends AppCompatActivity {
         course.setCourseId(courseId);
         courseViewModel.deleteCourse(course);
         finish();
+    }
+
+    private void viewCourseAssessments() {
+
     }
 
     private void setCourseStatus(String newStatus) {
