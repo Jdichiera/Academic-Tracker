@@ -13,6 +13,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Switch;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -163,6 +164,30 @@ public class ViewCourseActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onPrepareOptionsMenu(Menu menu) {
+        String courseStatus = textViewCourseStatus.getText().toString();
+        int statusPosition = Course.CourseStatus.valueOfLabel(courseStatus).ordinal();
+        switch (statusPosition) {
+            case 0: // Not Started
+                menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(true);
+                menu.findItem(R.id.menu_set_course_status_complete).setVisible(false);
+                break;
+            case 1: // In Progress
+                menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_complete).setVisible(true);
+                break;
+            case 2: // Completed
+                menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_complete).setVisible(false);
+                break;
+            case 3: // Dropped
+                break;
+        }
+        menu.findItem(R.id.menu_set_course_status_drop).setVisible(true);
+        return super.onPrepareOptionsMenu(menu);
+    }
+
+    @Override
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.menu_edit_course:
@@ -171,8 +196,17 @@ public class ViewCourseActivity extends AppCompatActivity {
             case R.id.menu_delete_course:
                 deleteCourse();
                 return true;
-            case R.id.menu_set_course_status:
-                setCourseStatus();
+            case R.id.menu_set_course_reset_status:
+                setCourseStatus(Course.CourseStatus.NOT_STARTED.label);
+                return true;
+            case R.id.menu_set_course_status_in_progress:
+                setCourseStatus(Course.CourseStatus.IN_PROGRESS.label);
+                return true;
+            case R.id.menu_set_course_status_complete:
+                setCourseStatus(Course.CourseStatus.COMPLETED.label);
+                return true;
+            case R.id.menu_set_course_status_drop:
+                setCourseStatus(Course.CourseStatus.DROPPED.label);
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -201,13 +235,26 @@ public class ViewCourseActivity extends AppCompatActivity {
         finish();
     }
 
-    private void setCourseStatus() {
-        String newCourseStatus;
-        int currentStatusPosition = Course.CourseStatus.valueOfLabel(textViewCourseStatus.getText().toString()).ordinal();
-        if (currentStatusPosition < Course.CourseStatus.values().length) {
-            newCourseStatus = Course.CourseStatus.values()[currentStatusPosition++].label;
-            courseViewModel.setCourseStatus(courseId, newCourseStatus);
+    private void setCourseStatus(String newStatus) {
+//        String newCourseStatus;
+//        int nextStatusPosition = Course.CourseStatus.valueOfLabel(textViewCourseStatus.getText().toString()).ordinal() + 1;
+//        if (nextStatusPosition < Course.CourseStatus.values().length) {
+//            newCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
+//            courseViewModel.setCourseStatus(courseId, newCourseStatus);
+            Course course = createCourse();
+            course.setCourseStatus(newStatus);
+            courseViewModel.update(course);
+    }
+
+    private String getNextCourseStatus() {
+        String currentCourseStatus = textViewCourseStatus.getText().toString();
+        String nextCourseStatus = currentCourseStatus;
+        int nextStatusPosition = Course.CourseStatus.valueOfLabel(currentCourseStatus).ordinal() + 1;
+        if (nextStatusPosition < Course.CourseStatus.values().length) {
+            nextCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
         }
+
+        return nextCourseStatus;
     }
 
     private Course createCourse() {

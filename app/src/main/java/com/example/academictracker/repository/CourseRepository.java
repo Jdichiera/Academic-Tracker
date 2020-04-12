@@ -45,6 +45,7 @@ public class CourseRepository {
     public void setCourseStatus(int id, String status) {
         courseDao.setCourseStatus(id, status);
     }
+
     public void deleteAllCourses() {
         new DeleteAllCoursesAsyncTask(courseDao).execute();
     }
@@ -108,4 +109,19 @@ public class CourseRepository {
             return null;
         }
     }
+
+//    private static class GetCourseAsyncTask extends AsyncTask<Integer, Void, Void> {
+//        private CourseDao courseDao;
+//        private Course course;
+//
+//        private GetCourseAsyncTask(CourseDao courseDao) {
+//            this.courseDao = courseDao;
+//        }
+//
+//        @Override
+//        protected Void doInBackground(Integer... ints) {
+//            course = courseDao.getCourseObject(ints[0]);
+//            return null;
+//        }
+//    }
 }

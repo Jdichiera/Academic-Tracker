@@ -12,8 +12,23 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_set_course_status"
-        android:title="Course Status"
+        android:id="@+id/menu_set_course_reset_status"
+        android:title="DEBUG RESET COURSE STATUS"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_set_course_status_in_progress"
+        android:title="Start Course"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_set_course_status_complete"
+        android:title="Complete Course"
+        app:showAsAction="never"/>
+
+    <item
+        android:id="@+id/menu_set_course_status_drop"
+        android:title="Drop Course"
         app:showAsAction="never"/>
 
 </menu>

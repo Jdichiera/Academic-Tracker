@@ -59,6 +59,10 @@ public class Course {
         this.termId = id;
     }
 
+    public void setCourseStatus(String status) {
+        this.courseStatus = status;
+    }
+
     public int getCourseId() {
         return this.courseId;
     }

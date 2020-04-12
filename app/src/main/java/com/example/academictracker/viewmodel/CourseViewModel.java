@@ -1,6 +1,7 @@
 package com.example.academictracker.viewmodel;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
@@ -31,6 +32,7 @@ public class CourseViewModel extends AndroidViewModel {
     }
 
     public void update(Course course) {
+        Log.e("AAAA", "Updating course status to : " + course.getCourseStatus());
         repository.update(course);
     }
 
@@ -41,6 +43,7 @@ public class CourseViewModel extends AndroidViewModel {
     public void setCourseStatus(int id, String status) {
         repository.setCourseStatus(id, status);
     }
+
     public void deleteAllCourses() {
         repository.deleteAllCourses();
     }
