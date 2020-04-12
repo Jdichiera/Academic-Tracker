@@ -15,15 +15,15 @@ public class CourseRepository {
     private CourseDao courseDao;
     private LiveData<List<Course>> allCoursesForTerm;
 
+    public CourseRepository(Application application) {
+        AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
+        courseDao = database.courseDao();
+    }
+
     public CourseRepository(Application application, int termId) {
         AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
         courseDao = database.courseDao();
         allCoursesForTerm = courseDao.getAllCoursesForTerm(termId);
-    }
-
-    public CourseRepository(Application application) {
-        AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
-        courseDao = database.courseDao();
     }
 
     public void insert(Course course) {
@@ -109,19 +109,4 @@ public class CourseRepository {
             return null;
         }
     }
-
-//    private static class GetCourseAsyncTask extends AsyncTask<Integer, Void, Void> {
-//        private CourseDao courseDao;
-//        private Course course;
-//
-//        private GetCourseAsyncTask(CourseDao courseDao) {
-//            this.courseDao = courseDao;
-//        }
-//
-//        @Override
-//        protected Void doInBackground(Integer... ints) {
-//            course = courseDao.getCourseObject(ints[0]);
-//            return null;
-//        }
-//    }
 }

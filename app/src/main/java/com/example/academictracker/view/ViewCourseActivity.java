@@ -91,7 +91,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonViewCourseNote.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "View Course Note", Toast.LENGTH_SHORT).show();
+                viewCourseNote();
             }
         });
 
@@ -171,19 +171,25 @@ public class ViewCourseActivity extends AppCompatActivity {
             case 0: // Not Started
                 menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(true);
                 menu.findItem(R.id.menu_set_course_status_complete).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_drop).setVisible(true);
                 break;
             case 1: // In Progress
                 menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(false);
                 menu.findItem(R.id.menu_set_course_status_complete).setVisible(true);
+                menu.findItem(R.id.menu_set_course_status_drop).setVisible(true);
                 break;
             case 2: // Completed
                 menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(false);
                 menu.findItem(R.id.menu_set_course_status_complete).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_drop).setVisible(true);
                 break;
             case 3: // Dropped
+                menu.findItem(R.id.menu_set_course_status_in_progress).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_complete).setVisible(false);
+                menu.findItem(R.id.menu_set_course_status_drop).setVisible(false);
                 break;
         }
-        menu.findItem(R.id.menu_set_course_status_drop).setVisible(true);
+
         return super.onPrepareOptionsMenu(menu);
     }
 
@@ -228,6 +234,13 @@ public class ViewCourseActivity extends AppCompatActivity {
         startActivityForResult(intent, EDIT_COURSE_REQUEST);
     }
 
+    private void viewCourseNote() {
+        Intent intent = new Intent(ViewCourseActivity.this, ViewCourseNoteActivity.class);
+        Course course = createCourse();
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        startActivity(intent);
+    }
+
     private void deleteCourse() {
         Course course = createCourse();
         course.setCourseId(courseId);
@@ -236,26 +249,21 @@ public class ViewCourseActivity extends AppCompatActivity {
     }
 
     private void setCourseStatus(String newStatus) {
-//        String newCourseStatus;
-//        int nextStatusPosition = Course.CourseStatus.valueOfLabel(textViewCourseStatus.getText().toString()).ordinal() + 1;
+        Course course = createCourse();
+        course.setCourseStatus(newStatus);
+        courseViewModel.update(course);
+    }
+
+//    private String getNextCourseStatus() {
+//        String currentCourseStatus = textViewCourseStatus.getText().toString();
+//        String nextCourseStatus = currentCourseStatus;
+//        int nextStatusPosition = Course.CourseStatus.valueOfLabel(currentCourseStatus).ordinal() + 1;
 //        if (nextStatusPosition < Course.CourseStatus.values().length) {
-//            newCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
-//            courseViewModel.setCourseStatus(courseId, newCourseStatus);
-            Course course = createCourse();
-            course.setCourseStatus(newStatus);
-            courseViewModel.update(course);
-    }
-
-    private String getNextCourseStatus() {
-        String currentCourseStatus = textViewCourseStatus.getText().toString();
-        String nextCourseStatus = currentCourseStatus;
-        int nextStatusPosition = Course.CourseStatus.valueOfLabel(currentCourseStatus).ordinal() + 1;
-        if (nextStatusPosition < Course.CourseStatus.values().length) {
-            nextCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
-        }
-
-        return nextCourseStatus;
-    }
+//            nextCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
+//        }
+//
+//        return nextCourseStatus;
+//    }
 
     private Course createCourse() {
         long startDateLong;

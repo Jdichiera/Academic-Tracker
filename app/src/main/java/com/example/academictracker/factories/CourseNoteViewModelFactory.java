@@ -1,26 +1,26 @@
 package com.example.academictracker.factories;
 
 import android.app.Application;
-import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.ViewModel;
 import androidx.lifecycle.ViewModelProvider;
 
+import com.example.academictracker.viewmodel.CourseNoteViewModel;
 import com.example.academictracker.viewmodel.CourseViewModel;
 
-public class CourseViewModelFactory implements ViewModelProvider.Factory {
+public class CourseNoteViewModelFactory implements ViewModelProvider.Factory {
     private Application application;
-    private int termId;
+    private int courseId;
 
-    public CourseViewModelFactory(Application application, int termId) {
+    public CourseNoteViewModelFactory(Application application, int courseId) {
         this.application = application;
-        this.termId = termId;
+        this.courseId = courseId;
     }
 
     @NonNull
     @Override
     public <T extends ViewModel> T create(@NonNull Class<T> modelClass) {
-        return (T) new CourseViewModel(this.application, this.termId);
+        return (T) new CourseNoteViewModel(this.application, this.courseId);
     }
 }
