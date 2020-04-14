@@ -7,7 +7,7 @@
     tools:context=".view.AssessmentListActivity">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/term_list_recyclerview"
+        android:id="@+id/assessment_list_recyclerview"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         tools:listitem="@layout/assessment_item"/>

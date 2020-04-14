@@ -15,13 +15,14 @@ import java.util.Date;
 import java.util.List;
 
 public class AssessmentListAdapter extends RecyclerView.Adapter<AssessmentListAdapter.AssessmentListHolder> {
-    private OnItemClickListener listener;
+    AssessmentListAdapter.OnItemClickListener listener;
     private List<Assessment> assessments = new ArrayList<>();
 
     @NonNull
     @Override
     public AssessmentListHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View assessmentView = LayoutInflater.from(parent.getContext()).inflate(R.layout.assessment_item, parent, false);
+        View assessmentView = LayoutInflater.from(parent.getContext())
+                .inflate(R.layout.assessment_item, parent, false);
         return new AssessmentListHolder(assessmentView);
     }
 
@@ -58,7 +59,8 @@ public class AssessmentListAdapter extends RecyclerView.Adapter<AssessmentListAd
             textViewAssessmentDueDate = itemView.findViewById(R.id.assessment_due_date);
             Button buttonViewAssessment = itemView.findViewById(R.id.button_assessment_view_assessment);
             Button buttonEditAssessment = itemView.findViewById(R.id.button_assessment_edit_assessment);
-            buttonEditAssessment   .setOnClickListener(new View.OnClickListener() {
+
+            buttonEditAssessment.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     int position = getAdapterPosition();
@@ -80,7 +82,6 @@ public class AssessmentListAdapter extends RecyclerView.Adapter<AssessmentListAd
 
         @Override
         public void onClick(View v) {
-
         }
     }
 

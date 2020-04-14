@@ -5,10 +5,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
+
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +69,7 @@ public class TermListAdapter extends RecyclerView.Adapter<TermListAdapter.TermLi
             termViewEndDate = itemView.findViewById(R.id.term_end_date);
             Button buttonViewTerm = itemView.findViewById(R.id.button_term_view_term);
             Button buttonEditTerm = itemView.findViewById(R.id.button_term_edit_term);
+
             buttonEditTerm.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

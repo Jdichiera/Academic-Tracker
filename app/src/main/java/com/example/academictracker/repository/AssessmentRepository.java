@@ -13,12 +13,17 @@ import java.util.List;
 
 public class AssessmentRepository {
     private AssessmentDao assessmentDao;
-    private LiveData<List<Assessment>> allAssessments;
+    private LiveData<List<Assessment>> allAssessmentsForCourse;
+
+    public AssessmentRepository(Application application, int courseId) {
+        AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
+        assessmentDao = database.assessmentDao();
+        allAssessmentsForCourse = assessmentDao.getAllAssessmentsForCourse(courseId);
+    }
 
     public AssessmentRepository(Application application) {
         AcademicTrackerDatabase database = AcademicTrackerDatabase.getInstance(application);
         assessmentDao = database.assessmentDao();
-        allAssessments = assessmentDao.getAllAssessments();
     }
 
     public void insert(Assessment assessment) {
@@ -41,8 +46,8 @@ public class AssessmentRepository {
         new AssessmentRepository.DeleteAllAssessmentsAsyncTask(assessmentDao).execute();
     }
 
-    public LiveData<List<Assessment>> getAllAssessments() {
-        return allAssessments;
+    public LiveData<List<Assessment>> getAllAssessmentsForCourse() {
+        return allAssessmentsForCourse;
     }
 
     private static class InsertAssessmentAsyncTask extends android.os.AsyncTask<Assessment, Void, Void> {

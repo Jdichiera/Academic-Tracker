@@ -1,11 +1,8 @@
 package com.example.academictracker.viewmodel;
 
 import android.app.Application;
-import android.util.Log;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import com.example.academictracker.entity.Course;
 import com.example.academictracker.repository.CourseRepository;
 

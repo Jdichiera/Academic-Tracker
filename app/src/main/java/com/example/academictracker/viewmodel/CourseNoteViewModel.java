@@ -31,6 +31,7 @@ public class CourseNoteViewModel extends AndroidViewModel {
     public LiveData<CourseNote> getCourseNote(int id) {
         return repository.getCourseNote(id);
     }
+
     public LiveData<CourseNote> getCourseNote() {
         return courseNote;
     }

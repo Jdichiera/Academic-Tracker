@@ -3,22 +3,16 @@ package com.example.academictracker.view;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModel;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.CourseListAdapter;
 import com.example.academictracker.entity.Course;
-import com.example.academictracker.entity.Term;
 import com.example.academictracker.factories.CourseViewModelFactory;
 import com.example.academictracker.viewmodel.CourseViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -73,6 +67,34 @@ public class CourseListActivity extends AppCompatActivity {
         });
     }
 
+    private void editCourse(Course course) {
+        Intent intent = new Intent(CourseListActivity.this, AddEditCourseActivity.class);
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+        startActivityForResult(intent, EDIT_COURSE_REQUEST);
+    }
+
+    private void viewCourse(Course course) {
+        Intent intent = new Intent(CourseListActivity.this, ViewCourseActivity.class);
+        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
+//        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
+        startActivity(intent);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -116,34 +138,6 @@ public class CourseListActivity extends AppCompatActivity {
                 Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
             }
         }
-    }
-
-    private void editCourse(Course course) {
-        Intent intent = new Intent(CourseListActivity.this, AddEditCourseActivity.class);
-        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
-        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
-        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
-        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
-        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
-        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
-        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
-        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
-        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
-        startActivityForResult(intent, EDIT_COURSE_REQUEST);
-    }
-
-    private void viewCourse(Course course) {
-        Intent intent = new Intent(CourseListActivity.this, ViewCourseActivity.class);
-        intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
-        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
-        startActivity(intent);
     }
 }
 

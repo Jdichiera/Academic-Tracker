@@ -12,9 +12,9 @@ public class Assessment {
 
     private String assessmentTitle;
 
-    public Assessment(String assessmentTitle, int courseId) {
-        this.courseId = courseId;
+    public Assessment(String assessmentTitle, long assessmentDueDate) {
         this.assessmentTitle = assessmentTitle;
+        this.assessmentDueDate = assessmentDueDate;
     }
 
     public int getAssessmentId() {

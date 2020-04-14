@@ -33,9 +33,9 @@ public class ViewCourseActivity extends AppCompatActivity {
     private TextView textViewCourseStatus;
     private CourseViewModel courseViewModel;
     public static final int EDIT_COURSE_REQUEST = 1;
-    public static final int DELETE_COURSE_REQUEST = 2;
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -110,45 +110,6 @@ public class ViewCourseActivity extends AppCompatActivity {
                 deleteCourse();
             }
         });
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-        String title;
-        long startDate;
-        long endDate;
-        String mentorName;
-        String mentorEmail;
-        String mentorPhone;
-        String courseStatus;
-        int termId;
-
-        if (resultCode == RESULT_OK) {
-            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
-            title = data.getStringExtra(AddEditCourseActivity.EXTRA_TITLE);
-            startDate = data.getLongExtra(AddEditCourseActivity.EXTRA_START_DATE, 0);
-            endDate = data.getLongExtra(AddEditCourseActivity.EXTRA_END_DATE, 0);
-            mentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME);
-            mentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL);
-            mentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE);
-            courseStatus = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS);
-            termId = data.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
-
-            Course course = new Course(title, startDate, endDate, courseStatus, mentorName, mentorPhone, mentorEmail);
-            course.setTermId(termId);
-
-            if (id == -1) {
-                Toast.makeText(this, "Course cannot be updated", Toast.LENGTH_SHORT).show();
-                return;
-            }
-
-            course.setCourseId(id);
-            courseViewModel.update(course);
-            Toast.makeText(this, "Course Updated : ", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -244,7 +205,9 @@ public class ViewCourseActivity extends AppCompatActivity {
     }
 
     private void viewCourseAssessments() {
-
+        Intent intent = new Intent(ViewCourseActivity.this, AssessmentListActivity.class);
+        intent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, courseId);
+        startActivity(intent);
     }
 
     private void setCourseStatus(String newStatus) {
@@ -293,5 +256,44 @@ public class ViewCourseActivity extends AppCompatActivity {
         course.setCourseId(courseId);
         course.setTermId(termId);
         return course;
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        String title;
+        long startDate;
+        long endDate;
+        String mentorName;
+        String mentorEmail;
+        String mentorPhone;
+        String courseStatus;
+        int termId;
+
+        if (resultCode == RESULT_OK) {
+            int id = data.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+            title = data.getStringExtra(AddEditCourseActivity.EXTRA_TITLE);
+            startDate = data.getLongExtra(AddEditCourseActivity.EXTRA_START_DATE, 0);
+            endDate = data.getLongExtra(AddEditCourseActivity.EXTRA_END_DATE, 0);
+            mentorName = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME);
+            mentorEmail = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL);
+            mentorPhone = data.getStringExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE);
+            courseStatus = data.getStringExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS);
+            termId = data.getIntExtra(AddEditCourseActivity.EXTRA_TERM_ID, -1);
+
+            Course course = new Course(title, startDate, endDate, courseStatus, mentorName, mentorPhone, mentorEmail);
+            course.setTermId(termId);
+
+            if (id == -1) {
+                Toast.makeText(this, "Course cannot be updated", Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            course.setCourseId(id);
+            courseViewModel.update(course);
+            Toast.makeText(this, "Course Updated : ", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(this, "Course not saved", Toast.LENGTH_SHORT).show();
+        }
     }
 }

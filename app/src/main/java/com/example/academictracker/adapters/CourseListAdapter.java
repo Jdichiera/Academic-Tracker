@@ -72,6 +72,7 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
             textViewCourseStatus = itemView.findViewById(R.id.course_status);
             buttonEditCourse = itemView.findViewById(R.id.button_course_edit_course);
             buttonViewCourse = itemView.findViewById(R.id.button_course_view_course);
+
             buttonEditCourse.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -94,7 +95,6 @@ public class CourseListAdapter extends RecyclerView.Adapter<CourseListAdapter.Co
 
         @Override
         public void onClick(View v) {
-
         }
     }
 
