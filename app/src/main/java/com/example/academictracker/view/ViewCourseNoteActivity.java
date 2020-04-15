@@ -6,6 +6,7 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.method.ScrollingMovementMethod;
 import android.view.View;
@@ -90,11 +91,15 @@ public class ViewCourseNoteActivity extends AppCompatActivity {
     }
 
     private void shareNote() {
-        Toast.makeText(this, "Share Note", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        intent.putExtra(Intent.EXTRA_TEXT, textViewCourseNoteContent.getText().toString());
+        startActivity(Intent.createChooser(intent, "Share course note with"));
     }
 
     private void addNote() {
         Intent intent = new Intent(ViewCourseNoteActivity.this, AddEditCourseNoteActivity.class);
+        intent.setData(null);
         intent.putExtra(AddEditCourseNoteActivity.EXTRA_COURSE_ID, courseId);
         startActivityForResult(intent, ADD_COURSE_NOTE_REQUEST);
     }
