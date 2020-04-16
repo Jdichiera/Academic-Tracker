@@ -27,6 +27,7 @@ public class ViewCourseNoteActivity extends AppCompatActivity {
     private TextView textViewCourseNoteContent;
     private CourseNoteViewModel courseNoteViewModel;
     private CourseNote courseNote;
+    private Button buttonAddEditNote;
 
 
     @Override
@@ -39,8 +40,8 @@ public class ViewCourseNoteActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_course_note);
 
         Button buttonShareNote = findViewById(R.id.button_view_course_note_share_note);
-        final Button buttonAddEditNote = findViewById(R.id.button_view_course_note_add_edit_note);
         Button buttonDeleteNote = findViewById(R.id.button_view_course_note_delete_note);
+        buttonAddEditNote = findViewById(R.id.button_view_course_note_add_edit_note);
 
         Intent intent = getIntent();
         courseId = intent.getIntExtra(AddEditCourseNoteActivity.EXTRA_COURSE_ID, -1);
@@ -91,10 +92,15 @@ public class ViewCourseNoteActivity extends AppCompatActivity {
     }
 
     private void shareNote() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        intent.putExtra(Intent.EXTRA_TEXT, textViewCourseNoteContent.getText().toString());
-        startActivity(Intent.createChooser(intent, "Share course note with"));
+        if (buttonAddEditNote.getText().toString().equals("Edit Note")) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+            intent.putExtra(Intent.EXTRA_TEXT, textViewCourseNoteContent.getText().toString());
+            startActivity(Intent.createChooser(intent, "Share course note with"));
+        } else {
+            Toast.makeText(this, "Please add a course note to share.", Toast.LENGTH_SHORT).show();
+        }
+        
     }
 
     private void addNote() {

@@ -5,6 +5,9 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -15,11 +18,14 @@ import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.academictracker.R;
+import com.example.academictracker.application.AcademicTracker;
 import com.example.academictracker.entity.Course;
+import com.example.academictracker.utility.NotificationHelper;
+import com.example.academictracker.utility.NotificationReceiver;
 import com.example.academictracker.viewmodel.CourseViewModel;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ViewCourseActivity extends AppCompatActivity {
     private int courseId;
@@ -34,12 +40,13 @@ public class ViewCourseActivity extends AppCompatActivity {
     private CourseViewModel courseViewModel;
     public static final int EDIT_COURSE_REQUEST = 1;
     final Calendar calendar = Calendar.getInstance();
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_view_course);
+
 
         Button buttonSetNotification = findViewById(R.id.button_view_course_set_notification);
         Button buttonViewCourseNote = findViewById(R.id.button_view_course_note);
@@ -65,9 +72,9 @@ public class ViewCourseActivity extends AppCompatActivity {
                 if (course != null) {
                     calendar.setTimeInMillis(course.getCourseStartDate());
                     textViewTitle.setText(course.getCourseTitle());
-                    textViewStartDate.setText((dateFormat.format(calendar.getTime())));
+                    textViewStartDate.setText(AcademicTracker.dateFormat.format(calendar.getTime()));
                     calendar.setTimeInMillis(course.getCourseEndDate());
-                    textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                    textViewEndDate.setText(AcademicTracker.dateFormat.format(calendar.getTime()));
                     textViewMentorName.setText(course.getCourseMentorName());
                     textViewMentorPhone.setText(course.getCourseMentorPhone());
                     textViewMentorEmail.setText(course.getCourseMentorEmail());
@@ -79,7 +86,7 @@ public class ViewCourseActivity extends AppCompatActivity {
         buttonSetNotification.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewCourseActivity.this, "Set Notification", Toast.LENGTH_SHORT).show();
+                setNotifications();
             }
         });
 
@@ -175,6 +182,12 @@ public class ViewCourseActivity extends AppCompatActivity {
         }
     }
 
+    private void setNotifications() {
+        setCourseBeginNotification();
+        setCourseEndNotification();
+        Toast.makeText(this, "Notifications set for course.", Toast.LENGTH_SHORT).show();
+    }
+
     private void editCourse() {
         Intent intent = new Intent(ViewCourseActivity.this, AddEditCourseActivity.class);
         Course course = createCourse();
@@ -198,6 +211,7 @@ public class ViewCourseActivity extends AppCompatActivity {
     }
 
     private void deleteCourse() {
+        cancelNotifications();
         Course course = createCourse();
         course.setCourseId(courseId);
         courseViewModel.deleteCourse(course);
@@ -216,17 +230,6 @@ public class ViewCourseActivity extends AppCompatActivity {
         courseViewModel.update(course);
     }
 
-//    private String getNextCourseStatus() {
-//        String currentCourseStatus = textViewCourseStatus.getText().toString();
-//        String nextCourseStatus = currentCourseStatus;
-//        int nextStatusPosition = Course.CourseStatus.valueOfLabel(currentCourseStatus).ordinal() + 1;
-//        if (nextStatusPosition < Course.CourseStatus.values().length) {
-//            nextCourseStatus = Course.CourseStatus.values()[nextStatusPosition].label;
-//        }
-//
-//        return nextCourseStatus;
-//    }
-
     private Course createCourse() {
         long startDateLong;
         long endDateLong;
@@ -236,26 +239,101 @@ public class ViewCourseActivity extends AppCompatActivity {
         String mentorEmail = textViewMentorEmail.getText().toString();
         String courseStatus = textViewCourseStatus.getText().toString();
 
-        Calendar calendar = Calendar.getInstance();
-
-        try {
-            calendar.setTime(dateFormat.parse(textViewStartDate.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        calendar.setTime(getCourseStartDate());
         startDateLong = calendar.getTimeInMillis();
-        try {
-            calendar.setTime(dateFormat.parse(textViewEndDate.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+        calendar.setTime(getCourseEndDate());
         endDateLong = calendar.getTimeInMillis();
-
 
         Course course = new Course(title, startDateLong, endDateLong, courseStatus, mentorName, mentorPhone, mentorEmail);
         course.setCourseId(courseId);
         course.setTermId(termId);
         return course;
+    }
+
+    protected void setCourseBeginNotification() {
+        int notificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_BEGIN, courseId);
+        String courseName = textViewTitle.getText().toString();
+        String courseStartDate = textViewStartDate.getText().toString();
+        String notificationTitle = courseName + " is starting today.";
+        String notificationMessage = "Your course '" + courseName + "' is scheduled to begin on " +
+                courseStartDate + ". Please check the Academic Tracker for more information.";
+        calendar.setTime(getCourseStartDate());
+
+        Intent courseBeginIntent = new Intent(this, NotificationReceiver.class);
+        courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, notificationTitle);
+        courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, notificationMessage);
+        courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, courseBeginIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void setCourseEndNotification() {
+        int notificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_END, courseId);
+        String courseName = textViewTitle.getText().toString();
+        String courseEndDate = textViewEndDate.getText().toString();
+        String notificationTitle = courseName + " is ending today.";
+        String notificationMessage = "Your course '" + courseName + "' is scheduled to end on " +
+                courseEndDate + ". Please check the Academic Tracker for more information.";
+
+        calendar.setTime(getCourseEndDate());
+
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, notificationTitle);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, notificationMessage);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void cancelNotifications() {
+        int beginNotificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_BEGIN, courseId);
+        int endNotificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_END, courseId);
+
+        Intent beginIntent = new Intent(this, NotificationReceiver.class);
+        beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, "");
+        beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, "");
+        beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, beginNotificationId);
+        PendingIntent beginPendingIntent = PendingIntent.getBroadcast(this, 1, beginIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        Intent endIntent = new Intent(this, NotificationReceiver.class);
+        endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, "");
+        endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, "");
+        endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, endNotificationId);
+        PendingIntent endPendingIntent = PendingIntent.getBroadcast(this, 2, endIntent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(beginPendingIntent);
+        alarm.cancel(endPendingIntent);
+
+
+    }
+
+    public Date getCourseStartDate() {
+        Date startDate = new Date();
+        try {
+            startDate = AcademicTracker.dateFormat.parse(textViewStartDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return startDate;
+    }
+
+    public Date getCourseEndDate()  {
+        Date endDate = new Date();
+        try {
+            endDate = AcademicTracker.dateFormat.parse(textViewEndDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return endDate;
     }
 
     @Override
