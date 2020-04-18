@@ -5,7 +5,9 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -13,6 +15,9 @@ import android.widget.Toast;
 
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
+import com.example.academictracker.factories.CourseViewModelFactory;
+import com.example.academictracker.repository.TermRepository;
+import com.example.academictracker.viewmodel.CourseViewModel;
 import com.example.academictracker.viewmodel.TermViewModel;
 
 import java.text.ParseException;
@@ -21,16 +26,15 @@ import java.util.Calendar;
 
 public class ViewTermActivity extends AppCompatActivity {
     private Term term;
+    private int termCourseCount;
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
     private TermViewModel termViewModel;
     public static final int EDIT_TERM_REQUEST = 1;
-    public static final int DELETE_TERM_REQUEST = 2;
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
-
-    int id;
+    int termId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -38,7 +42,7 @@ public class ViewTermActivity extends AppCompatActivity {
         setContentView(R.layout.activity_view_term);
 
         Intent intent = getIntent();
-        id = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
+        termId = intent.getIntExtra(AddEditTermActivity.EXTRA_ID, -1);
 
         textViewTitle = findViewById(R.id.term_view_title);
         textViewStartDate = findViewById(R.id.term_view_start_date);
@@ -47,15 +51,19 @@ public class ViewTermActivity extends AppCompatActivity {
         Button buttonDeleteTerm = findViewById(R.id.button_view_delete_term);
         Button buttonEditTerm = findViewById(R.id.button_view_edit_term);
         termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
-        termViewModel.getTerm(id).observe(this, new Observer<Term>() {
+        termViewModel.getTerm(termId).observe(this, new Observer<Term>() {
             @Override
             public void onChanged(Term term) {
                 if (term != null) {
-                    calendar.setTimeInMillis(term.getStartDate());
-                    textViewTitle.setText(term.getTitle());
-                    textViewStartDate.setText((dateFormat.format(calendar.getTime())));
-                    calendar.setTimeInMillis(term.getEndDate());
-                    textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                    if (term.getId() > 0) {
+                        calendar.setTimeInMillis(term.getStartDate());
+                        textViewTitle.setText(term.getTitle());
+                        textViewStartDate.setText((dateFormat.format(calendar.getTime())));
+                        calendar.setTimeInMillis(term.getEndDate());
+                        textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                        termViewModel.doesTermHaveCourses(term);
+                        termCourseCount = term.getTermCourseCount();
+                    }
                 }
             }
         });
@@ -63,38 +71,75 @@ public class ViewTermActivity extends AppCompatActivity {
         buttonViewCourseList.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewTermActivity.this, "View Courses: " + id, Toast.LENGTH_SHORT).show();
-                Intent intent = new Intent(ViewTermActivity.this, CourseListActivity.class);
-                // TODO : make this name better
-                intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, id);
-                startActivity(intent);
+                viewCourseList();
             }
-
         });
 
         buttonDeleteTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast.makeText(ViewTermActivity.this, "Delete Term", Toast.LENGTH_SHORT).show();
-                term = createTerm();
-                term.setId(id);
-                termViewModel.deleteTerm(term);
-                finish();
+                deleteTerm();
             }
         });
 
         buttonEditTerm.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                term = createTerm();
-                Intent intent = new Intent(ViewTermActivity.this, AddEditTermActivity.class);
-                intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
-                intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-                intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
-                intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
-                startActivityForResult(intent, EDIT_TERM_REQUEST);
+                editTerm();
             }
         });
+    }
+
+    private void deleteTerm() {
+        term = createTerm();
+        term.setId(termId);
+        try {
+            termViewModel.deleteTerm(this, term);
+            finish();
+        } catch (SQLiteException ex) {
+        }
+
+    }
+
+    private void editTerm() {
+        term = createTerm();
+        Intent intent = new Intent(ViewTermActivity.this, AddEditTermActivity.class);
+        intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
+        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
+        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
+        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
+        startActivityForResult(intent, EDIT_TERM_REQUEST);
+    }
+
+    private void viewCourseList() {
+        Intent intent = new Intent(ViewTermActivity.this, CourseListActivity.class);
+        intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, termId);
+        startActivity(intent);
+    }
+
+    private Term createTerm() {
+        long startDateLong;
+        long endDateLong;
+        String title = textViewTitle.getText().toString();
+        Calendar calendar = Calendar.getInstance();
+        try {
+            calendar.setTime(dateFormat.parse(textViewStartDate.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        startDateLong = calendar.getTimeInMillis();
+        try {
+            calendar.setTime(dateFormat.parse(textViewEndDate.getText().toString()));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        endDateLong = calendar.getTimeInMillis();
+
+        Term term = new Term(title, startDateLong, endDateLong);
+        term.setId(termId);
+        term.setTermCourseCount(termCourseCount);
+
+        return term;
     }
 
     @Override
@@ -119,29 +164,5 @@ public class ViewTermActivity extends AppCompatActivity {
         } else {
             Toast.makeText(this, "Term Update Failed", Toast.LENGTH_SHORT).show();
         }
-    }
-
-    private Term createTerm() {
-        long startDateLong;
-        long endDateLong;
-        String title = textViewTitle.getText().toString();
-        Calendar calendar = Calendar.getInstance();
-        try {
-            calendar.setTime(dateFormat.parse(textViewStartDate.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        startDateLong = calendar.getTimeInMillis();
-        try {
-            calendar.setTime(dateFormat.parse(textViewEndDate.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        endDateLong = calendar.getTimeInMillis();
-
-        Term term = new Term(title, startDateLong, endDateLong);
-        term.setId(id);
-
-        return term;
     }
 }

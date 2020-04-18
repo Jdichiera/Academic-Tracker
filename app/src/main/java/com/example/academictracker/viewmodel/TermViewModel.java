@@ -1,6 +1,8 @@
 package com.example.academictracker.viewmodel;
 
 import android.app.Application;
+import android.database.sqlite.SQLiteException;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
@@ -8,6 +10,7 @@ import androidx.lifecycle.LiveData;
 
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.repository.TermRepository;
+import com.example.academictracker.view.ViewTermActivity;
 
 import java.util.List;
 
@@ -29,8 +32,8 @@ public class TermViewModel extends AndroidViewModel {
         repository.update(term);
     }
 
-    public void deleteTerm(Term term) {
-        repository.deleteTerm(term);
+    public void deleteTerm(ViewTermActivity activity, Term term) {
+        repository.deleteTerm(activity, term);
     }
 
     public void deleteAllTerms() {
@@ -41,7 +44,15 @@ public class TermViewModel extends AndroidViewModel {
         return repository.getTerm(id);
     }
 
+    public void getTermCourses(Term term) {
+        repository.getTermCourses(term);
+    }
+
     public LiveData<List<Term>> getAllTerms() {
         return allTerms;
+    }
+
+    public void doesTermHaveCourses(Term term) {
+        repository.doesTermHaveCourses(term);
     }
 }

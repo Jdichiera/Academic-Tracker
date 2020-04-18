@@ -1,11 +1,16 @@
 package com.example.academictracker.entity;
 
 import androidx.room.Entity;
+import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
 
 
-@Entity(tableName = "courses_table")
+@Entity(tableName = "courses_table",
+        foreignKeys = @ForeignKey(entity = Term.class,
+        parentColumns = "id",
+        childColumns = "termId",
+        onDelete = ForeignKey.RESTRICT))
 public class Course {
     public enum CourseStatus {
         NOT_STARTED("Not Started"),
