@@ -13,22 +13,11 @@ public class Term {
     private String title;
     private Long startDate;
     private Long endDate;
-    @Ignore
-    @ColumnInfo(name = "Count")
-    private int termCourseCount;
 
     public Term(String title, Long startDate, Long endDate) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
-    }
-
-    public void setTermCourseCount(int courseCount) {
-        this.termCourseCount = courseCount;
-    }
-
-    public int getTermCourseCount() {
-        return this.termCourseCount;
     }
 
     public void setId(int id) {

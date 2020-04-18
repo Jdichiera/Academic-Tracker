@@ -2,11 +2,13 @@ package com.example.academictracker.entity;
 
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
 
 @Entity(tableName = "courses_table",
+        indices = {@Index("termId")},
         foreignKeys = @ForeignKey(entity = Term.class,
         parentColumns = "id",
         childColumns = "termId",

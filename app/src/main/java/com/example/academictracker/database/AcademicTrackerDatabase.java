@@ -16,7 +16,7 @@ import com.example.academictracker.entity.CourseNote;
 import com.example.academictracker.entity.Term;
 
 @Database(entities = {Term.class, Course.class, CourseNote.class, Assessment.class},
-        version = 8, exportSchema = false)
+        version = 9, exportSchema = false)
 public abstract class AcademicTrackerDatabase extends RoomDatabase {
     private static AcademicTrackerDatabase instance;
 

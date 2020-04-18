@@ -3,30 +3,22 @@ package com.example.academictracker.view;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
-import com.example.academictracker.factories.CourseViewModelFactory;
-import com.example.academictracker.repository.TermRepository;
-import com.example.academictracker.viewmodel.CourseViewModel;
 import com.example.academictracker.viewmodel.TermViewModel;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
 public class ViewTermActivity extends AppCompatActivity {
     private Term term;
-    private int termCourseCount;
     private TextView textViewTitle;
     private TextView textViewStartDate;
     private TextView textViewEndDate;
@@ -61,8 +53,6 @@ public class ViewTermActivity extends AppCompatActivity {
                         textViewStartDate.setText((dateFormat.format(calendar.getTime())));
                         calendar.setTimeInMillis(term.getEndDate());
                         textViewEndDate.setText((dateFormat.format(calendar.getTime())));
-                        termViewModel.doesTermHaveCourses(term);
-                        termCourseCount = term.getTermCourseCount();
                     }
                 }
             }
@@ -137,8 +127,6 @@ public class ViewTermActivity extends AppCompatActivity {
 
         Term term = new Term(title, startDateLong, endDateLong);
         term.setId(termId);
-        term.setTermCourseCount(termCourseCount);
-
         return term;
     }
 

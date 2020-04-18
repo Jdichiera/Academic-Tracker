@@ -42,20 +42,12 @@ public class TermRepository {
         return termDao.getTerm(id);
     }
 
-    public void getTermCourses(Term term) {
-        new GetTermCoursesAsyncTask(termDao).execute(term);
-    }
-
     public void deleteAllTerms() {
         new DeleteAllTermsAsyncTask(termDao).execute();
     }
 
     public LiveData<List<Term>> getAllTerms() {
         return allTerms;
-    }
-
-    public void doesTermHaveCourses(Term term) {
-        new CheckTermForCoursesAsyncTask(termDao, term).execute();
     }
 
     private static class InsertTermAsyncTask extends AsyncTask<Term, Void, Void> {
@@ -125,36 +117,6 @@ public class TermRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             termDao.deleteAllTerms();
-            return null;
-        }
-    }
-
-    private static class CheckTermForCoursesAsyncTask extends AsyncTask<Void, Void, Void> {
-        private TermDao termDao;
-        private Term term;
-
-        private CheckTermForCoursesAsyncTask(TermDao termDao, Term term) {
-            this.termDao = termDao;
-            this.term = term;
-        }
-
-        @Override
-        protected Void doInBackground(Void... voids) {
-            term.setTermCourseCount(termDao.getCoursesForTerm(term.getId()));
-            return null;
-        }
-    }
-
-    private static class GetTermCoursesAsyncTask extends AsyncTask<Term, Void, Integer> {
-        private TermDao termDao;
-
-        private GetTermCoursesAsyncTask(TermDao termDao) {
-            this.termDao = termDao;
-        }
-
-        @Override
-        protected Integer doInBackground(Term... terms) {
-            terms[0].setTermCourseCount(this.termDao.getCoursesForTerm(terms[0].getId()));
             return null;
         }
     }

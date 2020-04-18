@@ -44,15 +44,7 @@ public class TermViewModel extends AndroidViewModel {
         return repository.getTerm(id);
     }
 
-    public void getTermCourses(Term term) {
-        repository.getTermCourses(term);
-    }
-
     public LiveData<List<Term>> getAllTerms() {
         return allTerms;
-    }
-
-    public void doesTermHaveCourses(Term term) {
-        repository.doesTermHaveCourses(term);
     }
 }
