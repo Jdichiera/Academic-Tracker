@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".view.AddEditAssessmentActivity">
+
+    <TextView
+        android:id="@+id/assessment_add_title_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Assessment Title:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/assessment_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/assessment_add_title_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="50dp"
+        android:layout_toEndOf="@id/assessment_add_title_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/assessment_add_due_date_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assessment_add_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="50dp"
+        android:layout_marginTop="20dp"
+        android:text="Due Date:" />
+
+    <DatePicker
+        android:id="@+id/assessment_add_due_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/assessment_add_title"
+        android:spinnersShown="true"
+        android:layout_marginStart="30dp"
+        android:layout_marginEnd="50dp"
+        android:calendarViewShown="false"
+        android:layout_alignParentEnd="true"
+        android:datePickerMode="spinner"
+        android:textAlignment="viewEnd" />
+
+    <Button
+        android:id="@+id/button_assessment_add_save_assessment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assessment_add_due_date"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="10dp"
+        android:onClick="saveAssessment"
+        android:text="Save Assessment" />
+
+</RelativeLayout>

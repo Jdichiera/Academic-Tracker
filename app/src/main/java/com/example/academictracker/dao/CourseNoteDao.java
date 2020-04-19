@@ -19,9 +19,15 @@ public interface CourseNoteDao {
     @Delete
     void delteCourseNote(CourseNote note);
 
+    @Query("DELETE FROM course_notes_table")
+    void deleteAllCourseNotes();
+
     @Query("SELECT * FROM course_notes_table WHERE courseId = :courseId")
     LiveData<CourseNote> getCourseNoteByCourse(int courseId);
 
     @Query("SELECT * FROM course_notes_table WHERE courseId = :courseNoteId")
     LiveData<CourseNote> getCourseNote(int courseNoteId);
+
+    @Query("delete from sqlite_sequence where name='course_notes_table'")
+    void resetKeys();
 }

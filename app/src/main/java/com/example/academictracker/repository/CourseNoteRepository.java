@@ -38,6 +38,14 @@ public class CourseNoteRepository {
         new CourseNoteRepository.DeleteCourseNoteAsyncTask(courseNoteDao).execute(note);
     }
 
+    public void deleteAllCourseNotes() {
+        new CourseNoteRepository.DeleteAllCourseNotesAsyncTask(courseNoteDao).execute();
+    }
+
+    public void resetKeys() {
+        new CourseNoteRepository.ResetKeysAsyncTask(courseNoteDao).execute();
+    }
+
     public LiveData<CourseNote> getCourseNote(int id) {
         return courseNoteDao.getCourseNote(id);
     }
@@ -84,6 +92,34 @@ public class CourseNoteRepository {
         @Override
         protected Void doInBackground(CourseNote... notes) {
             courseNoteDao.delteCourseNote(notes[0]);
+            return null;
+        }
+    }
+
+    private static class DeleteAllCourseNotesAsyncTask extends AsyncTask<Void, Void, Void> {
+        private CourseNoteDao courseNoteDao;
+
+        private DeleteAllCourseNotesAsyncTask(CourseNoteDao courseNoteDao) {
+            this.courseNoteDao = courseNoteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            courseNoteDao.deleteAllCourseNotes();
+            return null;
+        }
+    }
+
+    private static class ResetKeysAsyncTask extends AsyncTask<Void, Void, Void> {
+        private CourseNoteDao courseNoteDao;
+
+        private ResetKeysAsyncTask(CourseNoteDao courseNoteDao) {
+            this.courseNoteDao = courseNoteDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            courseNoteDao.resetKeys();
             return null;
         }
     }

@@ -5,6 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,15 +16,19 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.academictracker.R;
+import com.example.academictracker.application.AcademicTracker;
 import com.example.academictracker.entity.Assessment;
 import com.example.academictracker.entity.CourseNote;
 import com.example.academictracker.factories.CourseNoteViewModelFactory;
+import com.example.academictracker.utility.NotificationHelper;
+import com.example.academictracker.utility.NotificationReceiver;
 import com.example.academictracker.viewmodel.AssessmentViewModel;
 import com.example.academictracker.viewmodel.CourseNoteViewModel;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ViewAssessmentActivity extends AppCompatActivity {
     private int courseId;
@@ -33,7 +40,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     private CourseNoteViewModel courseNoteViewModel;
     public static final int EDIT_ASSESSMENT_REQUEST = 1;
     final Calendar calendar = Calendar.getInstance();
-    final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
+//    final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,7 +65,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
                 if (assessment != null) {
                     calendar.setTimeInMillis(assessment.getAssessmentDueDate());
                     textViewTitle.setText(assessment.getAssessmentTitle());
-                    textViewDueDate.setText((dateFormat.format(calendar.getTime())));
+                    textViewDueDate.setText((AcademicTracker.dateFormat.format(calendar.getTime())));
                 }
             }
         });
@@ -97,6 +104,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     }
 
     private void deleteAssessment() {
+        cancelNotification();
         Assessment assessment = createAssessment();
         assessmentViewModel.deleteAssessment(assessment);
         finish();
@@ -113,8 +121,32 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     }
 
     private void setNotification() {
-        Toast.makeText(this, "Set Notification", Toast.LENGTH_SHORT).show();
+        int notificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.ASSESSMENT_DUE, assessmentId);
+        String assessmentName = textViewTitle.getText().toString();
+        String assessmentDueDate = textViewDueDate.getText().toString();
+        String notificationTitle = assessmentName + " is due today.";
 
+        calendar.setTime(getAssessmentDueDate());
+
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, notificationTitle);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
+
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.setExact(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(), pendingIntent);
+    }
+
+    private void cancelNotification() {
+        int notificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.ASSESSMENT_DUE, assessmentId);
+
+        Intent intent = new Intent(this, NotificationReceiver.class);
+        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
+        PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, intent, PendingIntent.FLAG_UPDATE_CURRENT);
+
+        AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
+        alarm.cancel(pendingIntent);
     }
 
     private Assessment createAssessment() {
@@ -123,17 +155,29 @@ public class ViewAssessmentActivity extends AppCompatActivity {
 
         Calendar calendar = Calendar.getInstance();
 
-        try {
-            calendar.setTime(dateFormat.parse(textViewDueDate.getText().toString()));
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
+//        try {
+//            calendar.setTime(dateFormat.parse(textViewDueDate.getText().toString()));
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+        calendar.setTime(getAssessmentDueDate());
         dueDate = calendar.getTimeInMillis();
 
         Assessment assessment = new Assessment(title, dueDate);
         assessment.setAssessmentId(assessmentId);
         assessment.setCourseId(courseId);
         return assessment;
+    }
+
+    public Date getAssessmentDueDate()  {
+        Date endDate = new Date();
+        try {
+            endDate = AcademicTracker.dateFormat.parse(textViewDueDate.getText().toString());
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return endDate;
     }
 
     @Override

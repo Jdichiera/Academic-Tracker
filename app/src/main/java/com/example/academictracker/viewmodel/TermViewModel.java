@@ -17,6 +17,7 @@ import java.util.List;
 public class TermViewModel extends AndroidViewModel {
     private TermRepository repository;
     private LiveData<List<Term>> allTerms;
+    public boolean deleteSuccessful;
 
     public TermViewModel(@NonNull Application application) {
         super(application);
@@ -24,8 +25,9 @@ public class TermViewModel extends AndroidViewModel {
         allTerms = repository.getAllTerms();
     }
 
-    public void insert(Term term) {
+    public long insert(Term term) {
         repository.insert(term);
+        return repository.insertedId;
     }
 
     public void update(Term term) {
@@ -34,6 +36,11 @@ public class TermViewModel extends AndroidViewModel {
 
     public void deleteTerm(ViewTermActivity activity, Term term) {
         repository.deleteTerm(activity, term);
+        deleteSuccessful = repository.deleteSuccessful;
+    }
+
+    public void resetKeys() {
+        repository.resetKeys();
     }
 
     public void deleteAllTerms() {
@@ -44,7 +51,19 @@ public class TermViewModel extends AndroidViewModel {
         return repository.getTerm(id);
     }
 
+    public LiveData<Term> getCurrentTerm() {
+        return repository.getCurrentTerm();
+    }
+
+    public LiveData<Integer> getCurrentTermId() {
+        return repository.getCurrentTermId();
+    }
+
     public LiveData<List<Term>> getAllTerms() {
         return allTerms;
+    }
+
+    public int getTermListSize() {
+        return allTerms.getValue().size();
     }
 }

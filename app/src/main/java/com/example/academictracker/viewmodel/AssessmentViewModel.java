@@ -26,6 +26,10 @@ public class AssessmentViewModel extends AndroidViewModel {
         repository = new AssessmentRepository(application);
     }
 
+    public void resetKeys() {
+        repository.resetKeys();
+    }
+
     public void insert(Assessment assessment) {
         repository.insert(assessment);
     }
@@ -36,6 +40,10 @@ public class AssessmentViewModel extends AndroidViewModel {
 
     public void deleteAssessment(Assessment assessment) {
         repository.deleteAssessment(assessment);
+    }
+
+    public void deleteAllAssessments() {
+        repository.deleteAllAssessments();
     }
 
     public LiveData<Assessment> getAssessment(int assessmentId) {

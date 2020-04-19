@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginEnd="8dp">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/term_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:maxLines="1"
+            android:text="Some Term Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/term_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_title"
+            android:text="01-01-2020" />
+
+        <TextView
+            android:id="@+id/term_end_date"
+            android:layout_toEndOf="@id/term_start_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/term_title"
+            android:layout_marginStart="20dp"
+            android:text="04-01-2020" />
+
+        <Button
+            android:id="@+id/button_term_view_term"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_toStartOf="@id/button_term_edit_term"
+            android:onClick="viewTerm"
+            android:text="View" />
+
+        <Button
+            android:id="@+id/button_term_edit_term"
+            android:layout_width="60dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:onClick="editTerm"
+            android:text="Edit" />
+
+    </RelativeLayout>
+
+
+</androidx.cardview.widget.CardView>

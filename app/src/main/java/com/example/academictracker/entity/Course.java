@@ -15,7 +15,7 @@ import androidx.room.PrimaryKey;
         onDelete = ForeignKey.RESTRICT))
 public class Course {
     public enum CourseStatus {
-        NOT_STARTED("Not Started"),
+        NOT_STARTED("Plan to Take"),
         IN_PROGRESS("In Progress"),
         COMPLETED("Completed"),
         DROPPED("Dropped");

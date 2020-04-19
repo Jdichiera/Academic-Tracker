@@ -31,4 +31,7 @@ public interface AssessmentDao {
 
     @Query("SELECT * FROM assessments_table WHERE assessmentId = :assessmentId")
     LiveData<Assessment> getAssessment(int assessmentId);
+
+    @Query("delete from sqlite_sequence where name='assessments_table'")
+    void resetKeys();
 }

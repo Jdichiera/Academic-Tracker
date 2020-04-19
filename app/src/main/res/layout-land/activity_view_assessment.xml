@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".view.ViewAssessmentActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dp">
+
+        <TextView
+            android:id="@+id/assessment_view_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="Some Assessment Name"
+            android:textAppearance="@style/TextAppearance.AppCompat.Headline"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/assessment_view_due_date_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_view_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="5dp"
+            android:text="Due Date"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/assessment_view_due_date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@id/assessment_view_due_date_prompt"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="01-01-2020"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/assessment_view_course_note_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_view_due_date_prompt"
+            android:paddingLeft="20dp"
+            android:layout_marginTop="5dp"
+            android:paddingRight="20dp"
+            android:text="Course Notes"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+        <TextView
+            android:id="@+id/assessment_view_course_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_view_course_note_prompt"
+            android:layout_marginTop="5dp"
+            android:paddingStart="30dp"
+            android:paddingEnd="20dp"
+            android:minLines="5"
+            android:text="Some note text" />
+
+        <Button
+            android:id="@+id/button_assessment_view_set_notfication"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_view_course_note"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:text="Set Notification" />
+
+        <Button
+            android:id="@+id/button_assessment_view_edit_assessment"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/assessment_view_course_note"
+            android:layout_toEndOf="@+id/button_assessment_view_set_notfication"
+            android:text="Edit Assessment"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp" />
+
+        <Button
+            android:id="@+id/button_assessment_view_delete_assessment"
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:layout_toEndOf="@+id/button_assessment_view_edit_assessment"
+            android:layout_below="@id/assessment_view_course_note"
+            android:layout_marginLeft="35dp"
+            android:layout_marginRight="35dp"
+            android:layout_marginTop="10dp"
+            android:backgroundTint="#AC5454"
+            android:text="Delete Assessment"
+            android:textColor="#FFFFFF" />
+
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>

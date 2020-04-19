@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.academictracker.dao.AssessmentDao;
+import com.example.academictracker.dao.CourseNoteDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
 import com.example.academictracker.entity.Assessment;
 
@@ -36,6 +37,10 @@ public class AssessmentRepository {
 
     public void deleteAssessment(Assessment assessment) {
         new AssessmentRepository.DeleteAssessmentAsyncTask(assessmentDao).execute(assessment);
+    }
+
+    public void resetKeys() {
+        new AssessmentRepository.ResetKeysAsyncTask(assessmentDao).execute();
     }
 
     public LiveData<Assessment> getAssessment(int id) {
@@ -98,6 +103,20 @@ public class AssessmentRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             assessmentDao.deleteAllAssessments();
+            return null;
+        }
+    }
+
+    private static class ResetKeysAsyncTask extends AsyncTask<Void, Void, Void> {
+        private AssessmentDao assessmentDao;
+
+        private ResetKeysAsyncTask(AssessmentDao assessmentDao) {
+            this.assessmentDao = assessmentDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            assessmentDao.resetKeys();
             return null;
         }
     }

@@ -33,4 +33,7 @@ public interface CourseDao {
 
     @Query("UPDATE courses_table SET courseStatus = :status WHERE courseId = :id")
     void setCourseStatus(int id, String status);
+
+    @Query("delete from sqlite_sequence where name='courses_table'")
+    void resetKeys();
 }

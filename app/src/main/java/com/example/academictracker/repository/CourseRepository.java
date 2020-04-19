@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import androidx.lifecycle.LiveData;
 
 import com.example.academictracker.dao.CourseDao;
+import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
 import com.example.academictracker.entity.Course;
 
@@ -48,6 +49,10 @@ public class CourseRepository {
 
     public void deleteAllCourses() {
         new DeleteAllCoursesAsyncTask(courseDao).execute();
+    }
+
+    public void resetKeys() {
+        new CourseRepository.ResetKeysAsyncTask(courseDao).execute();
     }
 
     public LiveData<List<Course>> getAllCoursesForTerm() {
@@ -106,6 +111,20 @@ public class CourseRepository {
         @Override
         protected Void doInBackground(Void... voids) {
             courseDao.deleteAllCourses();
+            return null;
+        }
+    }
+
+    private static class ResetKeysAsyncTask extends AsyncTask<Void, Void, Void> {
+        private CourseDao courseDao;
+
+        private ResetKeysAsyncTask(CourseDao courseDao) {
+            this.courseDao = courseDao;
+        }
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            courseDao.resetKeys();
             return null;
         }
     }

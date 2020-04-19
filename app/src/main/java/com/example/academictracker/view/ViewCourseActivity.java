@@ -255,13 +255,10 @@ public class ViewCourseActivity extends AppCompatActivity {
         String courseName = textViewTitle.getText().toString();
         String courseStartDate = textViewStartDate.getText().toString();
         String notificationTitle = courseName + " is starting today.";
-        String notificationMessage = "Your course '" + courseName + "' is scheduled to begin on " +
-                courseStartDate + ". Please check the Academic Tracker for more information.";
         calendar.setTime(getCourseStartDate());
 
         Intent courseBeginIntent = new Intent(this, NotificationReceiver.class);
         courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, notificationTitle);
-        courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, notificationMessage);
         courseBeginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 1, courseBeginIntent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -275,14 +272,11 @@ public class ViewCourseActivity extends AppCompatActivity {
         String courseName = textViewTitle.getText().toString();
         String courseEndDate = textViewEndDate.getText().toString();
         String notificationTitle = courseName + " is ending today.";
-        String notificationMessage = "Your course '" + courseName + "' is scheduled to end on " +
-                courseEndDate + ". Please check the Academic Tracker for more information.";
 
         calendar.setTime(getCourseEndDate());
 
         Intent intent = new Intent(this, NotificationReceiver.class);
         intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, notificationTitle);
-        intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, notificationMessage);
         intent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, notificationId);
 
         PendingIntent pendingIntent = PendingIntent.getBroadcast(this, 2, intent, PendingIntent.FLAG_UPDATE_CURRENT);
@@ -296,22 +290,16 @@ public class ViewCourseActivity extends AppCompatActivity {
         int endNotificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_END, courseId);
 
         Intent beginIntent = new Intent(this, NotificationReceiver.class);
-        beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, "");
-        beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, "");
         beginIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, beginNotificationId);
         PendingIntent beginPendingIntent = PendingIntent.getBroadcast(this, 1, beginIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         Intent endIntent = new Intent(this, NotificationReceiver.class);
-        endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_TITLE, "");
-        endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_MESSAGE, "");
         endIntent.putExtra(NotificationHelper.EXTRA_NOTIFICATION_ID, endNotificationId);
         PendingIntent endPendingIntent = PendingIntent.getBroadcast(this, 2, endIntent, PendingIntent.FLAG_UPDATE_CURRENT);
 
         AlarmManager alarm = (AlarmManager) this.getSystemService(Context.ALARM_SERVICE);
         alarm.cancel(beginPendingIntent);
         alarm.cancel(endPendingIntent);
-
-
     }
 
     public Date getCourseStartDate() {

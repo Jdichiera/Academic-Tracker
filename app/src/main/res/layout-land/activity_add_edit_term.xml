@@ -1,0 +1,87 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".view.AddEditTermActivity">
+
+    <TextView
+        android:id="@+id/term_add_title_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="8dp"
+        android:text="Title:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <EditText
+        android:id="@+id/term_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/term_add_title_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/term_add_title_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <TextView
+        android:id="@+id/term_add_start_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/term_add_title"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="95dp"
+        android:text="Start Date:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <DatePicker
+        android:id="@+id/term_add_start"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_below="@id/term_add_start_prompt"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:datePickerMode="spinner" />
+
+    <TextView
+        android:id="@+id/term_add_end_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/term_add_start"
+        android:layout_alignBaseline="@id/term_add_start_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="95dp"
+        android:text="End Date:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Large" />
+
+    <DatePicker
+        android:id="@+id/term_add_end"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_below="@id/term_add_end_prompt"
+        android:spinnersShown="true"
+        android:calendarViewShown="false"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="20dp"
+        android:datePickerMode="spinner" />
+
+    <Button
+        android:id="@+id/button_add_save_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="23dp"
+        android:onClick="saveTerm"
+        android:text="Save Term" />
+
+</RelativeLayout>

@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".view.AddEditCourseActivity">
+
+    <TextView
+        android:id="@+id/course_add_title_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:text="Title:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_title_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/course_add_title_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/course_add_mentor_name_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course_add_title_prompt"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Mentor Name:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_add_mentor_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_mentor_name_prompt"
+        android:layout_below="@id/course_add_title"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/course_add_mentor_name_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/course_add_mentor_email_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course_add_mentor_name_prompt"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Mentor Email:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_add_mentor_email"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_mentor_email_prompt"
+        android:layout_below="@id/course_add_mentor_name"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/course_add_mentor_email_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/course_add_mentor_phone_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course_add_mentor_email_prompt"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:text="Mentor Phone:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_add_mentor_phone"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_mentor_phone_prompt"
+        android:layout_below="@id/course_add_mentor_email"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/course_add_mentor_phone_prompt"
+        android:importantForAutofill="no"
+        android:inputType="phone"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/course_add_start_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/course_add_mentor_phone"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="80dp"
+        android:layout_marginTop="8dp"
+        android:text="Start Date:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <DatePicker
+        android:id="@+id/course_add_start"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_below="@id/course_add_start_prompt"
+        android:calendarViewShown="false"
+        android:datePickerMode="spinner"
+        android:spinnersShown="true"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/course_add_end_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_start_prompt"
+        android:layout_marginTop="8dp"
+        android:layout_marginStart="335dp"
+        android:text="End Date:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <DatePicker
+        android:id="@+id/course_add_end"
+        android:layout_width="wrap_content"
+        android:layout_height="125dp"
+        android:layout_below="@id/course_add_end_prompt"
+        android:calendarViewShown="false"
+        android:layout_marginLeft="250dp"
+        android:datePickerMode="spinner"
+        android:spinnersShown="true"
+        android:textAlignment="viewEnd" />
+
+    <TextView
+        android:id="@+id/course_add_status_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@id/course_add_end_prompt"
+        android:layout_toEndOf="@+id/course_add_end_prompt"
+        android:layout_marginLeft="120dp"
+        android:text="Course Status:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Spinner
+        android:id="@+id/course_add_status_spinner"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_add_status_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginTop="10dp" />
+
+    <Button
+        android:id="@+id/button_add_save_term"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:onClick="saveCourse"
+        android:layout_marginBottom="20dp"
+        android:text="Save Course" />
+
+</RelativeLayout>

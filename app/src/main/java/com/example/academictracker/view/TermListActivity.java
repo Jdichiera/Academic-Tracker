@@ -3,6 +3,7 @@ package com.example.academictracker.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.Nullable;
@@ -17,6 +18,8 @@ import com.example.academictracker.adapters.TermListAdapter;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+
+import org.w3c.dom.Text;
 
 import java.util.List;
 
@@ -111,9 +114,6 @@ public class TermListActivity extends AppCompatActivity {
     private void viewTerm(Term term) {
         Intent intent = new Intent(TermListActivity.this, ViewTermActivity.class);
         intent.putExtra(AddEditTermActivity.EXTRA_ID, term.getId());
-//        intent.putExtra(AddEditTermActivity.EXTRA_TITLE, term.getTitle());
-//        intent.putExtra(AddEditTermActivity.EXTRA_START_DATE, term.getStartDate());
-//        intent.putExtra(AddEditTermActivity.EXTRA_END_DATE, term.getEndDate());
         startActivity(intent);
     }
 }

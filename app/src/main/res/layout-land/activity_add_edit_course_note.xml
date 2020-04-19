@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp"
+    tools:context=".view.AddEditCourseNoteActivity">
+
+    <TextView
+        android:id="@+id/course_note_add_title_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Note Title:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_note_add_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignBottom="@id/course_note_add_title_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:layout_toEndOf="@id/course_note_add_title_prompt"
+        android:importantForAutofill="no"
+        android:inputType="text"
+        android:textAlignment="viewEnd"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <TextView
+        android:id="@+id/course_note_add_content_prompt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/course_note_add_title_prompt"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="20dp"
+        android:text="Note Content:"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <EditText
+        android:id="@+id/course_note_add_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignTop="@id/course_note_add_content_prompt"
+        android:layout_alignParentEnd="true"
+        android:layout_marginStart="20dp"
+        android:lines="5"
+        android:maxLines="5"
+        android:scrollbars="vertical"
+        android:layout_toEndOf="@id/course_note_add_content_prompt"
+        android:importantForAutofill="no"
+        android:inputType="textMultiLine"
+        android:textAlignment="viewStart"
+        android:textAppearance="@style/TextAppearance.AppCompat.Medium" />
+
+    <Button
+        android:id="@+id/button_course_note_add_save_course"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/course_note_add_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="25dp"
+        android:onClick="saveCourseNote"
+        android:text="Save Course Note" />
+
+</RelativeLayout>

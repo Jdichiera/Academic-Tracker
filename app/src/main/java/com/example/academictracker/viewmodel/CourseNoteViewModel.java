@@ -20,12 +20,20 @@ public class CourseNoteViewModel extends AndroidViewModel {
         repository.insert(note);
     }
 
+    public void resetKeys() {
+        repository.resetKeys();
+    }
+
     public void update(CourseNote note) {
         repository.update(note);
     }
 
     public void deleteCourseNote(CourseNote note) {
         repository.deleteCourseNote(note);
+    }
+
+    public void deleteAllCourseNotes() {
+        repository.deleteAllCourseNotes();
     }
 
     public LiveData<CourseNote> getCourseNote(int id) {

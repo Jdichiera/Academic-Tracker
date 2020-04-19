@@ -24,6 +24,10 @@ public class CourseViewModel extends AndroidViewModel {
         repository = new CourseRepository(application);
     }
 
+    public void resetKeys() {
+        repository.resetKeys();
+    }
+
     public void insert(Course course) {
         repository.insert(course);
     }
@@ -34,6 +38,10 @@ public class CourseViewModel extends AndroidViewModel {
 
     public void deleteCourse(Course course) {
         repository.deleteCourse(course);
+    }
+
+    public void deleteAllCourses() {
+        repository.deleteAllCourses();
     }
 
 //    public void setCourseStatus(int id, String status) {

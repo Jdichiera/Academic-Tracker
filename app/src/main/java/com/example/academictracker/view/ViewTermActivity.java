@@ -1,8 +1,10 @@
 package com.example.academictracker.view;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+
 import android.content.Intent;
 import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
@@ -10,9 +12,11 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
+
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.TermViewModel;
+
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +31,7 @@ public class ViewTermActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     int termId;
+//    boolean successfulLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +48,44 @@ public class ViewTermActivity extends AppCompatActivity {
         Button buttonDeleteTerm = findViewById(R.id.button_view_delete_term);
         Button buttonEditTerm = findViewById(R.id.button_view_edit_term);
         termViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
-        termViewModel.getTerm(termId).observe(this, new Observer<Term>() {
-            @Override
-            public void onChanged(Term term) {
-                if (term != null) {
-                    if (term.getId() > 0) {
+
+        if (termId != -1) {
+            termViewModel.getTerm(termId).observe(this, new Observer<Term>() {
+                @Override
+                public void onChanged(Term term) {
+                    // TODO clean this up
+                    if (term != null) {
+                        if (term.getId() > 0) {
+                            calendar.setTimeInMillis(term.getStartDate());
+                            textViewTitle.setText(term.getTitle());
+                            textViewStartDate.setText((dateFormat.format(calendar.getTime())));
+                            calendar.setTimeInMillis(term.getEndDate());
+                            textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                        }
+                    } else {
+                        finish();
+                    }
+                }
+            });
+        } else {
+            termViewModel.getCurrentTerm().observe(this, new Observer<Term>() {
+                @Override
+                public void onChanged(Term term) {
+                    if (term != null) {
                         calendar.setTimeInMillis(term.getStartDate());
                         textViewTitle.setText(term.getTitle());
                         textViewStartDate.setText((dateFormat.format(calendar.getTime())));
                         calendar.setTimeInMillis(term.getEndDate());
                         textViewEndDate.setText((dateFormat.format(calendar.getTime())));
+                        termId = term.getId();
+                    } else {
+                        finish();
+                        Toast.makeText(getApplicationContext(), "Unable to load current term. It was either deleted or no term has started yet. Please make a selection from the list of terms.", Toast.LENGTH_LONG).show();
                     }
                 }
-            }
-        });
+            });
+        }
+
 
         buttonViewCourseList.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -83,12 +112,7 @@ public class ViewTermActivity extends AppCompatActivity {
     private void deleteTerm() {
         term = createTerm();
         term.setId(termId);
-        try {
-            termViewModel.deleteTerm(this, term);
-            finish();
-        } catch (SQLiteException ex) {
-        }
-
+        termViewModel.deleteTerm(this, term);
     }
 
     private void editTerm() {

@@ -15,7 +15,7 @@ import java.util.List;
 @Dao
 public interface TermDao {
     @Insert
-    void insert(Term term);
+    long insert(Term term);
 
     @Update
     void update(Term term);
@@ -30,6 +30,14 @@ public interface TermDao {
     LiveData<List<Term>> getAllTerms();
 
     @Query("SELECT * FROM terms_table WHERE id = :termId")
-//    @Query("SELECT id, title, startDate, endDate, Count(courses_table.courseTitle) FROM terms_table LEFT JOIN courses_table ON terms_table.id = courses_table.termId WHERE terms_table.id = :termId")
     LiveData<Term> getTerm(int termId);
+
+    @Query("SELECT * FROM terms_table WHERE startDate <= :currentDate AND endDate >= :currentDate ORDER BY startDate ASC LIMIT 1")
+    LiveData<Term> getCurrentTerm(long currentDate);
+
+    @Query("SELECT id FROM terms_table WHERE startDate <= :currentDate AND endDate >= :currentDate ORDER BY startDate ASC LIMIT 1")
+    LiveData<Integer> getCurrentTermId(long currentDate);
+
+    @Query("delete from sqlite_sequence where name='terms_table'")
+    void resetKeys();
 }
