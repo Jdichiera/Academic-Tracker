@@ -85,13 +85,6 @@ public class CourseListActivity extends AppCompatActivity {
         Intent intent = new Intent(CourseListActivity.this, ViewCourseActivity.class);
         intent.putExtra(AddEditCourseActivity.EXTRA_ID, course.getCourseId());
         intent.putExtra(AddEditCourseActivity.EXTRA_TERM_ID, course.getTermId());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_TITLE, course.getCourseTitle());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_START_DATE, course.getCourseStartDate());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_END_DATE, course.getCourseEndDate());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_NAME, course.getCourseMentorName());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_EMAIL, course.getCourseMentorEmail());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_MENTOR_PHONE, course.getCourseMentorPhone());
-//        intent.putExtra(AddEditCourseActivity.EXTRA_COURSE_STATUS, course.getCourseStatus());
         startActivity(intent);
     }
 

@@ -44,14 +44,6 @@ public class CourseViewModel extends AndroidViewModel {
         repository.deleteAllCourses();
     }
 
-//    public void setCourseStatus(int id, String status) {
-//        repository.setCourseStatus(id, status);
-//    }
-//
-//    public void deleteAllCourses() {
-//        repository.deleteAllCourses();
-//    }
-
     public LiveData<Course> getCourse(int id) {
         return repository.getCourse(id);
     }

@@ -7,14 +7,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.Spinner;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
-import com.example.academictracker.adapters.CourseStatusAdapter;
-import com.example.academictracker.adapters.CourseStatusItem;
-
-import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AddEditAssessmentActivity extends AppCompatActivity {
@@ -66,8 +60,6 @@ public class AddEditAssessmentActivity extends AppCompatActivity {
         data.putExtra(EXTRA_DUE_DATE, dueDateLong);
         data.putExtra(EXTRA_COURSE_ID, courseId);
 
-        // If we are in an update scenario - pass the ID so we know that we are updating a term
-        // We pass a -1 default in
         int assessmentId = getIntent().getIntExtra(EXTRA_ID, -1);
         if (assessmentId != -1) {
             data.putExtra(EXTRA_ID, assessmentId);

@@ -107,7 +107,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         String mentorName = editTextMentorName.getText().toString();
         String mentorEmail = editTextMentorEmail.getText().toString();
         String mentorPhone = editTextMentorPhone.getText().toString();
-//        String courseStatus = spinnerCourseStatus.getSelectedItem().toString();
 
         if (title.trim().isEmpty()) {
             Toast.makeText(this, "Please enter a title before saving.", Toast.LENGTH_SHORT).show();
@@ -124,8 +123,6 @@ public class AddEditCourseActivity extends AppCompatActivity {
         data.putExtra(EXTRA_COURSE_STATUS, courseStatus);
         data.putExtra(EXTRA_TERM_ID, termId);
 
-        // If we are in an update scenario - pass the ID so we know that we are updating a term
-        // We pass a -1 default in
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);

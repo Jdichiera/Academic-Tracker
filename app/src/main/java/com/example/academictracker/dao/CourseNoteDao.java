@@ -17,7 +17,7 @@ public interface CourseNoteDao {
     void update(CourseNote note);
 
     @Delete
-    void delteCourseNote(CourseNote note);
+    void deleteCourseNote(CourseNote note);
 
     @Query("DELETE FROM course_notes_table")
     void deleteAllCourseNotes();

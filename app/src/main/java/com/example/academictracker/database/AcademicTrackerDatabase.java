@@ -41,9 +41,6 @@ public abstract class AcademicTrackerDatabase extends RoomDatabase {
         @Override
         public void onCreate(SupportSQLiteDatabase db) {
             super.onCreate(db);
-//            new PopulateDBAsyncTask(instance).execute();
         }
     };
-
-
 }

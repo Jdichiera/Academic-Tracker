@@ -1,12 +1,9 @@
 package com.example.academictracker.viewmodel;
 
 import android.app.Application;
-
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import com.example.academictracker.entity.Assessment;
-import com.example.academictracker.entity.Course;
 import com.example.academictracker.repository.AssessmentRepository;
 
 import java.util.List;

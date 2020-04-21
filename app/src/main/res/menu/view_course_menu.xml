@@ -12,11 +12,6 @@
         app:showAsAction="never"/>
 
     <item
-        android:id="@+id/menu_set_course_reset_status"
-        android:title="DEBUG RESET COURSE STATUS"
-        app:showAsAction="never"/>
-
-    <item
         android:id="@+id/menu_set_course_status_in_progress"
         android:title="Start Course"
         app:showAsAction="never"/>

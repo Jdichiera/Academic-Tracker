@@ -38,6 +38,6 @@ public interface TermDao {
     @Query("SELECT id FROM terms_table WHERE startDate <= :currentDate AND endDate >= :currentDate ORDER BY startDate ASC LIMIT 1")
     LiveData<Integer> getCurrentTermId(long currentDate);
 
-    @Query("delete from sqlite_sequence where name='terms_table'")
+    @Query("delete from sqlite_sequence where name = \"terms_table\"")
     void resetKeys();
 }

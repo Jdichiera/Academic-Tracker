@@ -3,24 +3,18 @@ package com.example.academictracker.view;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 import android.widget.Toast;
-
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.TermListAdapter;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.TermViewModel;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
-import org.w3c.dom.Text;
-
 import java.util.List;
 
 public class TermListActivity extends AppCompatActivity {

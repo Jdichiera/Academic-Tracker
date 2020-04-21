@@ -2,13 +2,9 @@ package com.example.academictracker.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
-
-import com.example.academictracker.dao.CourseDao;
 import com.example.academictracker.dao.CourseNoteDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
-import com.example.academictracker.entity.Course;
 import com.example.academictracker.entity.CourseNote;
 
 public class CourseNoteRepository {
@@ -91,7 +87,7 @@ public class CourseNoteRepository {
 
         @Override
         protected Void doInBackground(CourseNote... notes) {
-            courseNoteDao.delteCourseNote(notes[0]);
+            courseNoteDao.deleteCourseNote(notes[0]);
             return null;
         }
     }

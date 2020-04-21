@@ -4,7 +4,6 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.app.AlarmManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -14,7 +13,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.application.AcademicTracker;
 import com.example.academictracker.entity.Assessment;
@@ -24,9 +22,7 @@ import com.example.academictracker.utility.NotificationHelper;
 import com.example.academictracker.utility.NotificationReceiver;
 import com.example.academictracker.viewmodel.AssessmentViewModel;
 import com.example.academictracker.viewmodel.CourseNoteViewModel;
-
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -40,7 +36,6 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     private CourseNoteViewModel courseNoteViewModel;
     public static final int EDIT_ASSESSMENT_REQUEST = 1;
     final Calendar calendar = Calendar.getInstance();
-//    final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -154,12 +149,6 @@ public class ViewAssessmentActivity extends AppCompatActivity {
         String title = textViewTitle.getText().toString();
 
         Calendar calendar = Calendar.getInstance();
-
-//        try {
-//            calendar.setTime(dateFormat.parse(textViewDueDate.getText().toString()));
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
         calendar.setTime(getAssessmentDueDate());
         dueDate = calendar.getTimeInMillis();
 

@@ -165,9 +165,6 @@ public class ViewCourseActivity extends AppCompatActivity {
             case R.id.menu_delete_course:
                 deleteCourse();
                 return true;
-            case R.id.menu_set_course_reset_status:
-                setCourseStatus(Course.CourseStatus.NOT_STARTED.label);
-                return true;
             case R.id.menu_set_course_status_in_progress:
                 setCourseStatus(Course.CourseStatus.IN_PROGRESS.label);
                 return true;
@@ -270,7 +267,6 @@ public class ViewCourseActivity extends AppCompatActivity {
     private void setCourseEndNotification() {
         int notificationId = NotificationHelper.generateNotificationId(NotificationHelper.NotificationCategory.COURSE_END, courseId);
         String courseName = textViewTitle.getText().toString();
-        String courseEndDate = textViewEndDate.getText().toString();
         String notificationTitle = courseName + " is ending today.";
 
         calendar.setTime(getCourseEndDate());

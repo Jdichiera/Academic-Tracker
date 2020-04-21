@@ -1,22 +1,17 @@
 package com.example.academictracker.view;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-
 import android.content.Intent;
-import android.database.sqlite.SQLiteException;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.academictracker.R;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.viewmodel.TermViewModel;
-
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -31,7 +26,6 @@ public class ViewTermActivity extends AppCompatActivity {
     final Calendar calendar = Calendar.getInstance();
     final SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
     int termId;
-//    boolean successfulLoad;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

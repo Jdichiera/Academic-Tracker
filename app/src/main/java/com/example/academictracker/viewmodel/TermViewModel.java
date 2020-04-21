@@ -1,13 +1,9 @@
 package com.example.academictracker.viewmodel;
 
 import android.app.Application;
-import android.database.sqlite.SQLiteException;
-import android.util.Log;
-
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
-
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.repository.TermRepository;
 import com.example.academictracker.view.ViewTermActivity;

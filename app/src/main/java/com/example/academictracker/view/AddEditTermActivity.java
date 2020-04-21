@@ -66,8 +66,6 @@ public class AddEditTermActivity extends AppCompatActivity {
         data.putExtra(EXTRA_START_DATE, startDateLong);
         data.putExtra(EXTRA_END_DATE, endDateLong);
 
-        // If we are in an update scenario - pass the ID so we know that we are updating a term
-        // We pass a -1 default in
         int id = getIntent().getIntExtra(EXTRA_ID, -1);
         if (id != -1) {
             data.putExtra(EXTRA_ID, id);

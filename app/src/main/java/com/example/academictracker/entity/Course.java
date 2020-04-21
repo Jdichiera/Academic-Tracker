@@ -5,8 +5,6 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-
-
 @Entity(tableName = "courses_table",
         indices = {@Index("termId")},
         foreignKeys = @ForeignKey(entity = Term.class,
@@ -15,7 +13,7 @@ import androidx.room.PrimaryKey;
         onDelete = ForeignKey.RESTRICT))
 public class Course {
     public enum CourseStatus {
-        NOT_STARTED("Plan to Take"),
+        PLAN_TO_TAKE("Plan to Take"),
         IN_PROGRESS("In Progress"),
         COMPLETED("Completed"),
         DROPPED("Dropped");

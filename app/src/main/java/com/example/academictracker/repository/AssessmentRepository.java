@@ -2,11 +2,8 @@ package com.example.academictracker.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.academictracker.dao.AssessmentDao;
-import com.example.academictracker.dao.CourseNoteDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
 import com.example.academictracker.entity.Assessment;
 

@@ -4,22 +4,18 @@ import android.app.Activity;
 import android.app.Application;
 import android.database.sqlite.SQLiteException;
 import android.os.AsyncTask;
-import android.util.Log;
 import android.widget.Toast;
-
 import androidx.lifecycle.LiveData;
 import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
 import com.example.academictracker.entity.Term;
 import com.example.academictracker.view.ViewTermActivity;
-
 import java.lang.ref.WeakReference;
 import java.util.Calendar;
 import java.util.List;
 
 public class TermRepository {
     private TermDao termDao;
-//    public static int currentTermId;
     private LiveData<List<Term>> allTerms;
     public static boolean deleteSuccessful;
     public static long insertedId;

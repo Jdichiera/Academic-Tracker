@@ -11,9 +11,4 @@
         android:title="Delete All Data"
         app:showAsAction="never"/>
 
-    <item
-        android:id="@+id/create_alarm"
-        android:title="Create Alarm"
-        app:showAsAction="never"/>
-
 </menu>

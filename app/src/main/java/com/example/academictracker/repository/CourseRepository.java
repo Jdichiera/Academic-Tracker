@@ -2,11 +2,8 @@ package com.example.academictracker.repository;
 
 import android.app.Application;
 import android.os.AsyncTask;
-
 import androidx.lifecycle.LiveData;
-
 import com.example.academictracker.dao.CourseDao;
-import com.example.academictracker.dao.TermDao;
 import com.example.academictracker.database.AcademicTrackerDatabase;
 import com.example.academictracker.entity.Course;
 
@@ -41,10 +38,6 @@ public class CourseRepository {
 
     public LiveData<Course> getCourse(int id) {
         return courseDao.getCourse(id);
-    }
-
-    public void setCourseStatus(int id, String status) {
-        courseDao.setCourseStatus(id, status);
     }
 
     public void deleteAllCourses() {

@@ -10,6 +10,11 @@ public class CourseNoteViewModel extends AndroidViewModel {
     private CourseNoteRepository repository;
     private LiveData<CourseNote> courseNote;
 
+    public CourseNoteViewModel(Application application) {
+        super(application);
+        repository = new CourseNoteRepository(application);
+    }
+
     public CourseNoteViewModel(Application application, int courseId) {
         super(application);
         repository = new CourseNoteRepository(application, courseId);
