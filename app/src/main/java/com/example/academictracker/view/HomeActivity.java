@@ -24,9 +24,6 @@ import com.example.academictracker.viewmodel.CourseViewModel;
 import com.example.academictracker.viewmodel.TermViewModel;
 import java.text.ParseException;
 import java.util.Calendar;
-import java.util.HashMap;
-import java.util.Map;
-
 
 public class HomeActivity extends AppCompatActivity {
     @Override

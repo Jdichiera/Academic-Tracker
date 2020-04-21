@@ -28,13 +28,18 @@ public class AssessmentListAdapter extends RecyclerView.Adapter<AssessmentListAd
 
     @Override
     public void onBindViewHolder(@NonNull AssessmentListHolder holder, int position) {
+        String assessmentType = "Objective";
         Assessment assessmentAtPosition = assessments.get(position);
 
         SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy");
         Date assessmentDueDate = new Date(assessmentAtPosition.getAssessmentDueDate());
+        if (assessmentAtPosition.getIsPerformance() == true) {
+            assessmentType = "Performance";
+        }
 
         holder.textViewAssessmentTitle.setText(assessmentAtPosition.getAssessmentTitle());
         holder.textViewAssessmentDueDate.setText(dateFormat.format(assessmentDueDate));
+        holder.textViewAssessmentType.setText(assessmentType);
     }
 
     @Override
@@ -51,12 +56,14 @@ public class AssessmentListAdapter extends RecyclerView.Adapter<AssessmentListAd
     class AssessmentListHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView textViewAssessmentTitle;
         private TextView textViewAssessmentDueDate;
+        private TextView textViewAssessmentType;
 
         AssessmentListHolder(View itemView) {
             super(itemView);
 
             textViewAssessmentTitle = itemView.findViewById(R.id.assessment_title);
             textViewAssessmentDueDate = itemView.findViewById(R.id.assessment_due_date);
+            textViewAssessmentType = itemView.findViewById(R.id.assessment_type);
             Button buttonViewAssessment = itemView.findViewById(R.id.button_assessment_view_assessment);
             Button buttonEditAssessment = itemView.findViewById(R.id.button_assessment_edit_assessment);
 

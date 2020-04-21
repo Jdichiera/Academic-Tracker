@@ -32,6 +32,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     private TextView textViewTitle;
     private TextView textViewDueDate;
     private TextView textViewCourseNote;
+    private TextView textViewAssessmentType;
     private AssessmentViewModel assessmentViewModel;
     private CourseNoteViewModel courseNoteViewModel;
     public static final int EDIT_ASSESSMENT_REQUEST = 1;
@@ -52,6 +53,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
         textViewTitle = findViewById(R.id.assessment_view_title);
         textViewDueDate = findViewById(R.id.assessment_view_due_date);
         textViewCourseNote = findViewById(R.id.assessment_view_course_note);
+        textViewAssessmentType = findViewById(R.id.assessment_type);
 
         assessmentViewModel = ViewModelProviders.of(this).get(AssessmentViewModel.class);
         assessmentViewModel.getAssessment(assessmentId).observe(this, new Observer<Assessment>() {
@@ -61,6 +63,11 @@ public class ViewAssessmentActivity extends AppCompatActivity {
                     calendar.setTimeInMillis(assessment.getAssessmentDueDate());
                     textViewTitle.setText(assessment.getAssessmentTitle());
                     textViewDueDate.setText((AcademicTracker.dateFormat.format(calendar.getTime())));
+                    if (assessment.getIsPerformance() == true) {
+                        textViewAssessmentType.setText("Performance");
+                    } else {
+                        textViewAssessmentType.setText("Objective");
+                    }
                 }
             }
         });
@@ -147,12 +154,16 @@ public class ViewAssessmentActivity extends AppCompatActivity {
     private Assessment createAssessment() {
         long dueDate;
         String title = textViewTitle.getText().toString();
+        boolean isPerformance = false;
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(getAssessmentDueDate());
         dueDate = calendar.getTimeInMillis();
 
-        Assessment assessment = new Assessment(title, dueDate);
+        if (textViewAssessmentType.getText() == "Performance") {
+            isPerformance = true;
+        }
+        Assessment assessment = new Assessment(title, dueDate, isPerformance);
         assessment.setAssessmentId(assessmentId);
         assessment.setCourseId(courseId);
         return assessment;
@@ -175,6 +186,7 @@ public class ViewAssessmentActivity extends AppCompatActivity {
         String title;
         long dueDate;
         int courseId;
+        boolean isPerformance;
 
         if (resultCode == RESULT_OK) {
             int assessmentId = data.getIntExtra(AddEditAssessmentActivity.EXTRA_ID, -1);
@@ -186,8 +198,10 @@ public class ViewAssessmentActivity extends AppCompatActivity {
             title = data.getStringExtra(AddEditAssessmentActivity.EXTRA_TITLE);
             dueDate = data.getLongExtra(AddEditAssessmentActivity.EXTRA_DUE_DATE, 0);
             courseId = data.getIntExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, -1);
+            isPerformance = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_IS_PERFORMANCE, false);
 
-            Assessment assessment = new Assessment(title, dueDate);
+
+            Assessment assessment = new Assessment(title, dueDate, isPerformance);
             assessment.setCourseId(courseId);
             assessment.setAssessmentId(assessmentId);
             assessment.setCourseId(courseId);

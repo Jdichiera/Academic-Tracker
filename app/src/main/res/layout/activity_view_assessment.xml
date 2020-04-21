@@ -81,7 +81,8 @@
             android:layout_marginTop="10dp"
             android:paddingLeft="30dp"
             android:paddingRight="20dp"
-            android:minLines="14"
+            android:minLines="10"
+            android:maxLines="10"
             android:text="Some note text" />
 
         <Button

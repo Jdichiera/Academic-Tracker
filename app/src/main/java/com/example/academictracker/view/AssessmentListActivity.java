@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.RadioButton;
 import android.widget.Toast;
 import com.example.academictracker.R;
 import com.example.academictracker.adapters.AssessmentListAdapter;
@@ -31,6 +32,7 @@ public class AssessmentListActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         final int courseId = intent.getIntExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, -1);
+
 
         FloatingActionButton buttonAddAssessment = findViewById(R.id.button_list_add_assessment);
         buttonAddAssessment.setOnClickListener(new View.OnClickListener() {
@@ -75,6 +77,7 @@ public class AssessmentListActivity extends AppCompatActivity {
         intent.putExtra(AddEditAssessmentActivity.EXTRA_TITLE, assessment.getAssessmentTitle());
         intent.putExtra(AddEditAssessmentActivity.EXTRA_DUE_DATE, assessment.getAssessmentDueDate());
         intent.putExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, assessment.getCourseId());
+        intent.putExtra(AddEditAssessmentActivity.EXTRA_IS_PERFORMANCE, assessment.getIsPerformance());
         startActivityForResult(intent, EDIT_ASSESSMENT_REQUEST);
     }
 
@@ -91,13 +94,15 @@ public class AssessmentListActivity extends AppCompatActivity {
         String title;
         long dueDate;
         int courseId;
+        boolean isPerformance;
 
         if (resultCode == RESULT_OK) {
             title = data.getStringExtra(AddEditAssessmentActivity.EXTRA_TITLE);
             dueDate = data.getLongExtra(AddEditAssessmentActivity.EXTRA_DUE_DATE, 0);
             courseId = data.getIntExtra(AddEditAssessmentActivity.EXTRA_COURSE_ID, -1);
+            isPerformance = data.getBooleanExtra(AddEditAssessmentActivity.EXTRA_IS_PERFORMANCE, false);
 
-            Assessment assessment = new Assessment(title, dueDate);
+            Assessment assessment = new Assessment(title, dueDate, isPerformance);
             assessment.setCourseId(courseId);
 
             if (requestCode == ADD_ASSESSMENT_REQUEST) {
