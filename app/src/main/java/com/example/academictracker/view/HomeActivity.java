@@ -166,13 +166,20 @@ public class HomeActivity extends AppCompatActivity {
     private void addAssessmentData() {
         AssessmentViewModel assessmentViewModel = ViewModelProviders.of(this).get(AssessmentViewModel.class);
 
-        Assessment assessment = new Assessment("Assessment for Course 1", getDateAsLong("04/27/2020"));
-        Assessment assessment2 = new Assessment("Assessment for Course 2", getDateAsLong("04/27/2020"));
-        assessment.setCourseId(1);
-        assessment2.setCourseId(2);
+        Assessment performanceAssessment = new Assessment("Performance Assessment for Course 1", getDateAsLong("04/27/2020"), true);
+        Assessment objectiveAssessment = new Assessment("Objective Assessment for Course 1", getDateAsLong("04/27/2020"), false);
+        Assessment performanceAssessment2 = new Assessment("Performance Assessment for Course 12", getDateAsLong("04/27/2020"), true);
+        Assessment objectiveAssessment2 = new Assessment("Objective Assessment for Course 12", getDateAsLong("04/27/2020"), false);
 
-        assessmentViewModel.insert(assessment);
-        assessmentViewModel.insert(assessment2);
+        performanceAssessment.setCourseId(1);
+        objectiveAssessment.setCourseId(1);
+        performanceAssessment2.setCourseId(2);
+        objectiveAssessment2.setCourseId(2);
+
+        assessmentViewModel.insert(performanceAssessment);
+        assessmentViewModel.insert(objectiveAssessment);
+        assessmentViewModel.insert(performanceAssessment2);
+        assessmentViewModel.insert(objectiveAssessment2);
     }
 
     private long getDateAsLong(String time) {

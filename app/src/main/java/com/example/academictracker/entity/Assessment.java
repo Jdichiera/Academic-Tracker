@@ -9,12 +9,14 @@ public class Assessment {
     private int assessmentId;
     private int courseId;
     private long assessmentDueDate;
+    private boolean isPerformance;
 
     private String assessmentTitle;
 
-    public Assessment(String assessmentTitle, long assessmentDueDate) {
+    public Assessment(String assessmentTitle, long assessmentDueDate, boolean isPerformance) {
         this.assessmentTitle = assessmentTitle;
         this.assessmentDueDate = assessmentDueDate;
+        this.isPerformance = isPerformance;
     }
 
     public int getAssessmentId() {
@@ -35,6 +37,10 @@ public class Assessment {
 
     public String getAssessmentTitle() {
         return assessmentTitle;
+    }
+
+    public boolean getIsPerformance() {
+        return this.isPerformance;
     }
 
     public void setAssessmentTitle(String assessmentTitle) {

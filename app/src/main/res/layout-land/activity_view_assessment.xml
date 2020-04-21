@@ -21,10 +21,31 @@
             android:textStyle="bold" />
 
         <TextView
+            android:id="@+id/assessment_type_prompt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/assessment_view_title"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="10dp"
+            android:text="Assessment Type"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
+            android:id="@+id/assessment_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/assessment_type_prompt"
+            android:layout_alignParentEnd="true"
+            android:paddingLeft="20dp"
+            android:paddingRight="20dp"
+            android:text="Objective"
+            android:textAppearance="@style/TextAppearance.AppCompat.Medium"/>
+
+        <TextView
             android:id="@+id/assessment_view_due_date_prompt"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@id/assessment_view_title"
+            android:layout_below="@id/assessment_type_prompt"
             android:layout_marginStart="20dp"
             android:layout_marginTop="5dp"
             android:text="Due Date"

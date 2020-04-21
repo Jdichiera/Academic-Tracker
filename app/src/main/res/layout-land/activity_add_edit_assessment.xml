@@ -45,7 +45,7 @@
     <DatePicker
         android:id="@+id/assessment_add_due_date"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="125dp"
         android:layout_below="@id/assessment_add_title"
         android:spinnersShown="true"
         android:layout_marginStart="30dp"
@@ -55,13 +55,37 @@
         android:datePickerMode="spinner"
         android:textAlignment="viewEnd" />
 
+    <RadioGroup
+        android:id="@+id/radio_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/assessment_add_due_date"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal">
+
+        <RadioButton
+            android:id="@+id/radio_performance"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginRight="10dp"
+            android:text="Performance" />
+
+        <RadioButton
+            android:id="@+id/radio_objective"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:text="Objective" />
+    </RadioGroup>
+
     <Button
         android:id="@+id/button_assessment_add_save_assessment"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/assessment_add_due_date"
+        android:layout_below="@+id/radio_buttons"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="30dp"
         android:onClick="saveAssessment"
         android:text="Save Assessment" />
 
